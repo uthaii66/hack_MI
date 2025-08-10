@@ -1,0 +1,1209 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "id": "bundle-7e962aeb-3446-462e-9834-30dbe4c3dc73",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:pat-MEM12345",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "pat-MEM12345",
+        "gender": "female",
+        "birthDate": "1974",
+        "name": [
+          {
+            "use": "official",
+            "text": "Member 2345"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://example.org/condition-tags",
+            "valueString": "HTN"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "https://fcc.example/members",
+            "value": "MEM12345"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bcdb1f17-5eb7-4e81-88e0-638e2a565e0c",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "bcdb1f17-5eb7-4e81-88e0-638e2a565e0c",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Potassium"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "effectiveDateTime": "2025-08-03T06:26:54Z",
+        "valueQuantity": {
+          "value": 1.8,
+          "unit": "mmol/L"
+        },
+        "interpretation": [
+          {
+            "text": "low"
+          }
+        ],
+        "note": [
+          {
+            "text": "Ref range 3.5-5.1 mmol/L"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bd880fe8-3e7b-40d4-91b9-73085bd4e027",
+      "resource": {
+        "resourceType": "ExplanationOfBenefit",
+        "id": "bd880fe8-3e7b-40d4-91b9-73085bd4e027",
+        "status": "active",
+        "type": {
+          "text": "professional"
+        },
+        "patient": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "created": "2025-08-02T15:17:08Z",
+        "outcome": "complete",
+        "item": [
+          {
+            "sequence": 1,
+            "productOrService": {
+              "text": "99213"
+            },
+            "diagnosisSequence": [
+              1
+            ]
+          }
+        ],
+        "diagnosis": [
+          {
+            "sequence": 1,
+            "diagnosisCodeableConcept": {
+              "text": "E11.9"
+            }
+          }
+        ],
+        "payment": {
+          "amount": {
+            "value": 345.51,
+            "currency": "USD"
+          }
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f5d02fed-5228-415c-8d80-2a4ff5863eb4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "f5d02fed-5228-415c-8d80-2a4ff5863eb4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "A1C"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "effectiveDateTime": "2025-07-31T04:57:09Z",
+        "valueQuantity": {
+          "value": 5.98,
+          "unit": "%"
+        },
+        "interpretation": [
+          {
+            "text": "high"
+          }
+        ],
+        "note": [
+          {
+            "text": "Ref range 4.0-5.6 %"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a000f477-18be-4733-9465-9e924237f4c6",
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "a000f477-18be-4733-9465-9e924237f4c6",
+        "status": "scheduled",
+        "serviceType": [
+          {
+            "text": "Endocrinology"
+          }
+        ],
+        "start": "2025-05-02T14:48:58Z",
+        "participant": [
+          {
+            "actor": {
+              "display": "Dr. M. Patel"
+            },
+            "status": "accepted"
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "Follow-up"
+          }
+        ],
+        "supportingInformation": [
+          {
+            "display": "Oak Valley Medical Office"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:18c4027f-2409-41ec-ab53-e00fc3e4696d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "18c4027f-2409-41ec-ab53-e00fc3e4696d",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Vital signs panel"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "effectiveDateTime": "2025-07-14T09:45:54Z",
+        "component": [
+          {
+            "code": {
+              "text": "Systolic BP"
+            },
+            "valueQuantity": {
+              "value": 134,
+              "unit": "mmHg"
+            }
+          },
+          {
+            "code": {
+              "text": "Diastolic BP"
+            },
+            "valueQuantity": {
+              "value": 88,
+              "unit": "mmHg"
+            }
+          },
+          {
+            "code": {
+              "text": "SpO2"
+            },
+            "valueQuantity": {
+              "value": 100,
+              "unit": "%"
+            }
+          },
+          {
+            "code": {
+              "text": "Heart rate"
+            },
+            "valueQuantity": {
+              "value": 94,
+              "unit": "bpm"
+            }
+          },
+          {
+            "code": {
+              "text": "Temp C"
+            },
+            "valueQuantity": {
+              "value": 37.6,
+              "unit": "°C"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:50150452-e182-4205-b1e8-fb8a6d52a535",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "50150452-e182-4205-b1e8-fb8a6d52a535",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "A1C"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "effectiveDateTime": "2025-07-12T04:37:41Z",
+        "valueQuantity": {
+          "value": 5.6,
+          "unit": "%"
+        },
+        "interpretation": [
+          {
+            "text": "normal"
+          }
+        ],
+        "note": [
+          {
+            "text": "Ref range 4.0-5.6 %"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c5c797a0-724d-4fea-84c6-41db337d674e",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "c5c797a0-724d-4fea-84c6-41db337d674e",
+        "status": "in-progress",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "period": {
+          "start": "2025-07-12T02:13:07Z"
+        },
+        "serviceType": {
+          "text": "Fever"
+        },
+        "location": [
+          {
+            "location": {
+              "display": "Sunrise Clinic"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d625e5c8-73bb-4a43-8fc3-3d158a23e8dc",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "d625e5c8-73bb-4a43-8fc3-3d158a23e8dc",
+        "status": "active",
+        "intent": "order",
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "authoredOn": "2025-05-22T02:08:07Z",
+        "medicationCodeableConcept": {
+          "text": "Metformin 500 mg"
+        },
+        "dosageInstruction": [
+          {
+            "text": "90-day supply"
+          }
+        ],
+        "performer": {
+          "display": "GoodHealth Pharmacy"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:71e394b2-88cf-489c-a538-a7dfc60a2851",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "71e394b2-88cf-489c-a538-a7dfc60a2851",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "period": {
+          "start": "2025-07-01T11:01:32Z"
+        },
+        "serviceType": {
+          "text": "Home w/ Home Health"
+        },
+        "location": [
+          {
+            "location": {
+              "display": "Sunrise Clinic"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:524d867d-bb15-425e-adb6-f45798c812d0",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "524d867d-bb15-425e-adb6-f45798c812d0",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Potassium"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "effectiveDateTime": "2025-06-29T13:56:21Z",
+        "valueQuantity": {
+          "value": 4.71,
+          "unit": "mmol/L"
+        },
+        "interpretation": [
+          {
+            "text": "normal"
+          }
+        ],
+        "note": [
+          {
+            "text": "Ref range 3.5-5.1 mmol/L"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:06dc7f43-9cfe-499f-b5f7-b2fa59d843d3",
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "06dc7f43-9cfe-499f-b5f7-b2fa59d843d3",
+        "status": "rescheduled",
+        "serviceType": [
+          {
+            "text": "Cardiology"
+          }
+        ],
+        "start": "2025-05-02T19:03:09Z",
+        "participant": [
+          {
+            "actor": {
+              "display": "NP R. Gomez"
+            },
+            "status": "accepted"
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "Follow-up"
+          }
+        ],
+        "supportingInformation": [
+          {
+            "display": "Oak Valley Medical Office"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:91e3832c-f849-4ad1-8621-59520663148d",
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "91e3832c-f849-4ad1-8621-59520663148d",
+        "status": "scheduled",
+        "serviceType": [
+          {
+            "text": "Primary Care"
+          }
+        ],
+        "start": "2025-07-27T08:27:20Z",
+        "participant": [
+          {
+            "actor": {
+              "display": "NP R. Gomez"
+            },
+            "status": "accepted"
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "Follow-up"
+          }
+        ],
+        "supportingInformation": [
+          {
+            "display": "Oak Valley Medical Office"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9f280f29-854b-4c70-a59c-4b6774839e14",
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "9f280f29-854b-4c70-a59c-4b6774839e14",
+        "status": "scheduled",
+        "serviceType": [
+          {
+            "text": "Endocrinology"
+          }
+        ],
+        "start": "2025-06-13T21:18:13Z",
+        "participant": [
+          {
+            "actor": {
+              "display": "Dr. M. Patel"
+            },
+            "status": "accepted"
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "Follow-up"
+          }
+        ],
+        "supportingInformation": [
+          {
+            "display": "Telehealth"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f95d780e-bb48-4bb4-82f4-c071748086d1",
+      "resource": {
+        "resourceType": "ExplanationOfBenefit",
+        "id": "f95d780e-bb48-4bb4-82f4-c071748086d1",
+        "status": "active",
+        "type": {
+          "text": "professional"
+        },
+        "patient": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "created": "2025-06-20T01:52:40Z",
+        "outcome": "complete",
+        "item": [
+          {
+            "sequence": 1,
+            "productOrService": {
+              "text": "99214"
+            },
+            "diagnosisSequence": [
+              1
+            ]
+          }
+        ],
+        "diagnosis": [
+          {
+            "sequence": 1,
+            "diagnosisCodeableConcept": {
+              "text": "E11.9"
+            }
+          }
+        ],
+        "payment": {
+          "amount": {
+            "value": 172.51,
+            "currency": "USD"
+          }
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4d9a73d5-9d26-4c3e-8b54-6ed51dd18ec8",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "4d9a73d5-9d26-4c3e-8b54-6ed51dd18ec8",
+        "status": "active",
+        "intent": "order",
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "authoredOn": "2025-07-12T21:04:00Z",
+        "medicationCodeableConcept": {
+          "text": "Atorvastatin 20 mg"
+        },
+        "dosageInstruction": [
+          {
+            "text": "90-day supply"
+          }
+        ],
+        "performer": {
+          "display": "MediPlus Pharmacy"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:832c6889-96d2-47c2-bc92-4b83e83138c3",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "832c6889-96d2-47c2-bc92-4b83e83138c3",
+        "status": "in-progress",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "period": {
+          "start": "2025-06-08T13:31:35Z"
+        },
+        "serviceType": {
+          "text": "Fever"
+        },
+        "location": [
+          {
+            "location": {
+              "display": "Sunrise Clinic"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:15c43901-fc27-4c08-87c6-10c0f716afc2",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "15c43901-fc27-4c08-87c6-10c0f716afc2",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "period": {
+          "start": "2025-06-08T02:39:41Z"
+        },
+        "serviceType": {
+          "text": "SNF"
+        },
+        "location": [
+          {
+            "location": {
+              "display": "Riverbend Medical"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c81c12c7-7dcb-4f8e-8290-efa2dc513973",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "c81c12c7-7dcb-4f8e-8290-efa2dc513973",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "period": {
+          "start": "2025-06-03T19:53:43Z"
+        },
+        "serviceType": {
+          "text": "SNF"
+        },
+        "location": [
+          {
+            "location": {
+              "display": "Sunrise Clinic"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8cfe7e62-2a0e-4eba-8ad1-d930caaac98c",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "8cfe7e62-2a0e-4eba-8ad1-d930caaac98c",
+        "status": "active",
+        "intent": "order",
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "authoredOn": "2025-04-12T05:03:23Z",
+        "medicationCodeableConcept": {
+          "text": "Atorvastatin 20 mg"
+        },
+        "dosageInstruction": [
+          {
+            "text": "30-day supply"
+          }
+        ],
+        "performer": {
+          "display": "CareFirst Rx"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6d79dea5-f6d2-4a09-be80-15191f1aa03d",
+      "resource": {
+        "resourceType": "Appointment",
+        "id": "6d79dea5-f6d2-4a09-be80-15191f1aa03d",
+        "status": "completed",
+        "serviceType": [
+          {
+            "text": "Cardiology"
+          }
+        ],
+        "start": "2025-05-30T08:22:02Z",
+        "participant": [
+          {
+            "actor": {
+              "display": "Dr. M. Patel"
+            },
+            "status": "accepted"
+          }
+        ],
+        "reasonCode": [
+          {
+            "text": "Follow-up"
+          }
+        ],
+        "supportingInformation": [
+          {
+            "display": "Telehealth"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8a74205e-3765-4d31-8e52-c997ac4b30d1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "8a74205e-3765-4d31-8e52-c997ac4b30d1",
+        "status": "active",
+        "intent": "order",
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "authoredOn": "2025-07-10T04:52:10Z",
+        "medicationCodeableConcept": {
+          "text": "Metformin 500 mg"
+        },
+        "dosageInstruction": [
+          {
+            "text": "30-day supply"
+          }
+        ],
+        "performer": {
+          "display": "MediPlus Pharmacy"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:615b2465-5237-4f78-9ad8-0883cef5085e",
+      "resource": {
+        "resourceType": "ExplanationOfBenefit",
+        "id": "615b2465-5237-4f78-9ad8-0883cef5085e",
+        "status": "active",
+        "type": {
+          "text": "professional"
+        },
+        "patient": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "created": "2025-05-13T11:37:17Z",
+        "outcome": "complete",
+        "item": [
+          {
+            "sequence": 1,
+            "productOrService": {
+              "text": "99214"
+            },
+            "diagnosisSequence": [
+              1
+            ]
+          }
+        ],
+        "diagnosis": [
+          {
+            "sequence": 1,
+            "diagnosisCodeableConcept": {
+              "text": "R53.83"
+            }
+          }
+        ],
+        "payment": {
+          "amount": {
+            "value": 149.65,
+            "currency": "USD"
+          }
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0bfede48-f287-4280-847a-1cb8d6915ffe",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "0bfede48-f287-4280-847a-1cb8d6915ffe",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Vital signs panel"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "effectiveDateTime": "2025-05-02T00:35:05Z",
+        "component": [
+          {
+            "code": {
+              "text": "Systolic BP"
+            },
+            "valueQuantity": {
+              "value": 128,
+              "unit": "mmHg"
+            }
+          },
+          {
+            "code": {
+              "text": "Diastolic BP"
+            },
+            "valueQuantity": {
+              "value": 87,
+              "unit": "mmHg"
+            }
+          },
+          {
+            "code": {
+              "text": "SpO2"
+            },
+            "valueQuantity": {
+              "value": 97,
+              "unit": "%"
+            }
+          },
+          {
+            "code": {
+              "text": "Heart rate"
+            },
+            "valueQuantity": {
+              "value": 105,
+              "unit": "bpm"
+            }
+          },
+          {
+            "code": {
+              "text": "Temp C"
+            },
+            "valueQuantity": {
+              "value": 37.9,
+              "unit": "°C"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6b30e782-8b36-4a26-ab38-fda691565dbe",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "6b30e782-8b36-4a26-ab38-fda691565dbe",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "period": {
+          "start": "2025-04-27T19:18:19Z"
+        },
+        "serviceType": {
+          "text": "SNF"
+        },
+        "location": [
+          {
+            "location": {
+              "display": "Oak Valley Hospital"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2c806781-e338-4105-aef5-0691129e65b0",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "2c806781-e338-4105-aef5-0691129e65b0",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Potassium"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "effectiveDateTime": "2025-04-26T01:24:57Z",
+        "valueQuantity": {
+          "value": 4.07,
+          "unit": "mmol/L"
+        },
+        "interpretation": [
+          {
+            "text": "normal"
+          }
+        ],
+        "note": [
+          {
+            "text": "Ref range 3.5-5.1 mmol/L"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9d47c664-9850-4f24-b06a-947efcafc3ee",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "9d47c664-9850-4f24-b06a-947efcafc3ee",
+        "status": "active",
+        "intent": "order",
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "authoredOn": "2025-06-22T01:57:45Z",
+        "medicationCodeableConcept": {
+          "text": "Metformin 500 mg"
+        },
+        "dosageInstruction": [
+          {
+            "text": "30-day supply"
+          }
+        ],
+        "performer": {
+          "display": "CareFirst Rx"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2fc2e821-47a7-4cc3-aa1a-340bca5c7bfb",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "2fc2e821-47a7-4cc3-aa1a-340bca5c7bfb",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Vital signs panel"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "effectiveDateTime": "2025-04-22T21:43:52Z",
+        "component": [
+          {
+            "code": {
+              "text": "Systolic BP"
+            },
+            "valueQuantity": {
+              "value": 149,
+              "unit": "mmHg"
+            }
+          },
+          {
+            "code": {
+              "text": "Diastolic BP"
+            },
+            "valueQuantity": {
+              "value": 81,
+              "unit": "mmHg"
+            }
+          },
+          {
+            "code": {
+              "text": "SpO2"
+            },
+            "valueQuantity": {
+              "value": 95,
+              "unit": "%"
+            }
+          },
+          {
+            "code": {
+              "text": "Heart rate"
+            },
+            "valueQuantity": {
+              "value": 110,
+              "unit": "bpm"
+            }
+          },
+          {
+            "code": {
+              "text": "Temp C"
+            },
+            "valueQuantity": {
+              "value": 36.5,
+              "unit": "°C"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9c041034-6c57-4ef2-86ff-4936b9751d2c",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "9c041034-6c57-4ef2-86ff-4936b9751d2c",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "period": {
+          "start": "2025-04-21T05:12:51Z"
+        },
+        "serviceType": {
+          "text": "Home w/ Home Health"
+        },
+        "location": [
+          {
+            "location": {
+              "display": "Sunrise Clinic"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6fc02f3f-a1ea-4841-a171-95d0b9fbd48b",
+      "resource": {
+        "resourceType": "ExplanationOfBenefit",
+        "id": "6fc02f3f-a1ea-4841-a171-95d0b9fbd48b",
+        "status": "active",
+        "type": {
+          "text": "professional"
+        },
+        "patient": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "created": "2025-04-18T12:36:24Z",
+        "outcome": "complete",
+        "item": [
+          {
+            "sequence": 1,
+            "productOrService": {
+              "text": "99214"
+            },
+            "diagnosisSequence": [
+              1
+            ]
+          }
+        ],
+        "diagnosis": [
+          {
+            "sequence": 1,
+            "diagnosisCodeableConcept": {
+              "text": "R53.83"
+            }
+          }
+        ],
+        "payment": {
+          "amount": {
+            "value": 200.55,
+            "currency": "USD"
+          }
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0abdb69e-70ee-4a46-8e7e-0e6dd096936c",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "0abdb69e-70ee-4a46-8e7e-0e6dd096936c",
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "IMP"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "period": {
+          "start": "2025-04-17T04:58:14Z"
+        },
+        "serviceType": {
+          "text": "Rehab"
+        },
+        "location": [
+          {
+            "location": {
+              "display": "Oak Valley Hospital"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bce0ab3a-9223-44a3-a834-cf3aa09cb2ec",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "bce0ab3a-9223-44a3-a834-cf3aa09cb2ec",
+        "status": "active",
+        "intent": "order",
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "authoredOn": "2025-08-02T21:13:01Z",
+        "medicationCodeableConcept": {
+          "text": "Lisinopril 10 mg"
+        },
+        "dosageInstruction": [
+          {
+            "text": "60-day supply"
+          }
+        ],
+        "performer": {
+          "display": "GoodHealth Pharmacy"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7f648183-cabb-4a25-b003-7fa5a9399088",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "7f648183-cabb-4a25-b003-7fa5a9399088",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Vital signs panel"
+        },
+        "subject": {
+          "reference": "Patient/pat-MEM12345"
+        },
+        "effectiveDateTime": "2025-04-12T13:00:37Z",
+        "component": [
+          {
+            "code": {
+              "text": "Systolic BP"
+            },
+            "valueQuantity": {
+              "value": 143,
+              "unit": "mmHg"
+            }
+          },
+          {
+            "code": {
+              "text": "Diastolic BP"
+            },
+            "valueQuantity": {
+              "value": 83,
+              "unit": "mmHg"
+            }
+          },
+          {
+            "code": {
+              "text": "SpO2"
+            },
+            "valueQuantity": {
+              "value": 96,
+              "unit": "%"
+            }
+          },
+          {
+            "code": {
+              "text": "Heart rate"
+            },
+            "valueQuantity": {
+              "value": 61,
+              "unit": "bpm"
+            }
+          },
+          {
+            "code": {
+              "text": "Temp C"
+            },
+            "valueQuantity": {
+              "value": 38,
+              "unit": "°C"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
