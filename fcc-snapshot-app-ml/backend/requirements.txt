@@ -4,3 +4,9 @@ pydantic
 xgboost
 shap
 numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+faker
+scipy

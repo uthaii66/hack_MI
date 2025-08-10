@@ -1,84 +1,64 @@
 [
   {
-    "ts": "2025-08-10",
-    "ts_iso": "2025-08-09T20:52:58Z",
-    "type": "APPOINTMENT",
+    "ts": "2025-07-01",
+    "ts_iso": "2025-08-07T12:46:49Z",
+    "type": "CLAIM",
     "payload": {
-      "appt_type": "Lab Draw",
-      "provider": "NP R. Gomez",
-      "location": "Oak Valley Medical Office",
-      "start_iso": "2025-07-10T22:44:50Z",
-      "status": "Completed"
+      "cpt": "83036",
+      "icd10": [
+        "D50.9",
+        "E03.9"
+      ],
+      "amount": 245.99,
+      "place_of_service": "22-OP Hospital"
     }
   },
   {
-    "ts": "2025-06-23",
-    "ts_iso": "2025-07-24T20:06:09Z",
-    "type": "ADT_DISCHARGE",
-    "payload": {
-      "facility_id": "FAC1002",
-      "facility": "Riverbend Medical",
-      "reason": null,
-      "disposition": "SNF"
-    }
-  },
-  {
-    "ts": "2025-04-21",
-    "ts_iso": "2025-07-15T12:53:06Z",
-    "type": "ADT_ADMIT",
-    "payload": {
-      "facility_id": "FAC1001",
-      "facility": "Oak Valley Hospital",
-      "reason": "Shortness of breath",
-      "disposition": null
-    }
-  },
-  {
-    "ts": "2025-06-03",
-    "ts_iso": "2025-07-07T16:45:29Z",
+    "ts": "2025-08-01",
+    "ts_iso": "2025-07-27T16:07:40Z",
     "type": "VITALS",
     "payload": {
-      "bp_systolic": 121,
-      "bp_diastolic": 75,
-      "heart_rate": 109,
-      "resp_rate": 17,
-      "spo2": 95,
-      "temp_c": 38.8,
-      "bmi": 26.9,
-      "source": "Clinic"
+      "bp_systolic": 123,
+      "bp_diastolic": 79,
+      "heart_rate": 97,
+      "resp_rate": 21,
+      "spo2": 100,
+      "temp_c": 37.9,
+      "bmi": 29.0,
+      "source": "Home device"
     }
   },
   {
-    "ts": "2025-07-28",
-    "ts_iso": "2025-07-03T04:44:35Z",
-    "type": "APPOINTMENT",
-    "payload": {
-      "appt_type": "Lab Draw",
-      "provider": "Dr. L. Chen",
-      "location": "Oak Valley Medical Office",
-      "start_iso": "2025-07-01T17:50:12Z",
-      "status": "Scheduled"
-    }
-  },
-  {
-    "ts": "2025-06-20",
-    "ts_iso": "2025-06-29T15:02:08Z",
+    "ts": "2025-07-29",
+    "ts_iso": "2025-07-17T15:02:03Z",
     "type": "LAB_RESULT",
     "payload": {
-      "test_name": "Sodium",
-      "value": 140.07,
+      "test_name": "Potassium",
+      "value": 1.86,
       "unit": "mmol/L",
-      "ref_range": "135-145 mmol/L",
-      "flag": "N",
+      "ref_range": "3.5-5.1 mmol/L",
+      "flag": "L",
       "performing_lab": "MetroLab",
-      "lo": 135,
-      "hi": 145,
-      "observation_id": "OBS971860"
+      "lo": 3.5,
+      "hi": 5.1,
+      "observation_id": "OBS488002"
     }
   },
   {
-    "ts": "2025-07-19",
-    "ts_iso": "2025-06-22T03:34:28Z",
+    "ts": "2025-05-16",
+    "ts_iso": "2025-07-16T07:58:49Z",
+    "type": "MED_REFILL",
+    "payload": {
+      "drug": "Lisinopril 10 mg",
+      "days_supply": 30,
+      "pharmacy": "MediPlus Pharmacy",
+      "refill_date": "2025-06-14T10:18:14Z",
+      "adherence_estimate": 0.99
+    }
+  },
+  {
+    "ts": "2025-07-11",
+    "ts_iso": "2025-07-15T19:33:45Z",
     "type": "ADT_ADMIT",
     "payload": {
       "facility_id": "FAC1001",
@@ -88,90 +68,117 @@
     }
   },
   {
-    "ts": "2025-08-03",
-    "ts_iso": "2025-06-11T03:27:00Z",
+    "ts": "2025-05-24",
+    "ts_iso": "2025-05-18T12:04:57Z",
+    "type": "LAB_RESULT",
+    "payload": {
+      "test_name": "Hemoglobin",
+      "value": 10.92,
+      "unit": "g/dL",
+      "ref_range": "11.5-16.0 g/dL",
+      "flag": "L",
+      "performing_lab": "MetroLab",
+      "lo": 11.5,
+      "hi": 16.0,
+      "observation_id": "OBS755334"
+    }
+  },
+  {
+    "ts": "2025-06-12",
+    "ts_iso": "2025-05-12T06:51:59Z",
+    "type": "ADT_ADMIT",
+    "payload": {
+      "facility_id": "FAC1003",
+      "facility": "Sunrise Clinic",
+      "reason": "Shortness of breath",
+      "disposition": null
+    }
+  },
+  {
+    "ts": "2025-07-27",
+    "ts_iso": "2025-05-06T06:57:39Z",
+    "type": "APPOINTMENT",
+    "payload": {
+      "appt_type": "Cardiology",
+      "provider": "Dr. M. Patel",
+      "location": "Telehealth",
+      "start_iso": "2025-04-19T07:44:34Z",
+      "status": "No-Show"
+    }
+  },
+  {
+    "ts": "2025-06-10",
+    "ts_iso": "2025-05-03T16:51:45Z",
     "type": "VITALS",
     "payload": {
-      "bp_systolic": 154,
-      "bp_diastolic": 91,
-      "heart_rate": 58,
-      "resp_rate": 24,
-      "spo2": 97,
-      "temp_c": 38.7,
+      "bp_systolic": 132,
+      "bp_diastolic": 82,
+      "heart_rate": 88,
+      "resp_rate": 17,
+      "spo2": 93,
+      "temp_c": 36.7,
       "bmi": 20.9,
       "source": "Home device"
     }
   },
   {
-    "ts": "2025-07-19",
-    "ts_iso": "2025-06-10T16:45:29Z",
-    "type": "CLAIM",
+    "ts": "2025-05-06",
+    "ts_iso": "2025-04-19T19:50:22Z",
+    "type": "MED_REFILL",
     "payload": {
-      "cpt": "99214",
-      "icd10": [
-        "I10"
-      ],
-      "amount": 339.49,
-      "place_of_service": "11-Office"
+      "drug": "Metformin 500 mg",
+      "days_supply": 30,
+      "pharmacy": "GoodHealth Pharmacy",
+      "refill_date": "2025-06-25T00:15:29Z",
+      "adherence_estimate": 0.95
     }
   },
   {
-    "ts": "2025-04-27",
-    "ts_iso": "2025-05-22T18:47:07Z",
-    "type": "APPOINTMENT",
-    "payload": {
-      "appt_type": "Cardiology",
-      "provider": "NP R. Gomez",
-      "location": "Telehealth",
-      "start_iso": "2025-06-03T02:32:47Z",
-      "status": "Rescheduled"
-    }
-  },
-  {
-    "ts": "2025-05-11",
-    "ts_iso": "2025-05-18T09:03:55Z",
-    "type": "CLAIM",
-    "payload": {
-      "cpt": "99213",
-      "icd10": [
-        "E78.5",
-        "J06.9"
-      ],
-      "amount": 145.76,
-      "place_of_service": "22-OP Hospital"
-    }
-  },
-  {
-    "ts": "2025-06-26",
-    "ts_iso": "2025-05-05T04:10:40Z",
-    "type": "ADT_DISCHARGE",
+    "ts": "2025-05-07",
+    "ts_iso": "2025-04-18T18:28:12Z",
+    "type": "ADT_ADMIT",
     "payload": {
       "facility_id": "FAC1002",
       "facility": "Riverbend Medical",
-      "reason": null,
-      "disposition": "SNF"
+      "reason": "Hyperglycemia",
+      "disposition": null
     }
   },
   {
-    "ts": "2025-07-07",
-    "ts_iso": "2025-05-02T20:04:26Z",
-    "type": "ADT_DISCHARGE",
-    "payload": {
-      "facility_id": "FAC1002",
-      "facility": "Riverbend Medical",
-      "reason": null,
-      "disposition": "Home"
-    }
-  },
-  {
-    "ts": "2025-07-28",
-    "ts_iso": "2025-04-17T12:25:24Z",
+    "ts": "2025-06-18",
+    "ts_iso": "2025-04-18T11:23:23Z",
     "type": "ADT_DISCHARGE",
     "payload": {
       "facility_id": "FAC1001",
       "facility": "Oak Valley Hospital",
       "reason": null,
-      "disposition": "Home"
+      "disposition": "Home w/ Home Health"
+    }
+  },
+  {
+    "ts": "2025-05-12",
+    "ts_iso": "2025-04-14T03:55:10Z",
+    "type": "APPOINTMENT",
+    "payload": {
+      "appt_type": "Lab Draw",
+      "provider": "Dr. L. Chen",
+      "location": "Oak Valley Medical Office",
+      "start_iso": "2025-05-08T10:43:43Z",
+      "status": "Rescheduled"
+    }
+  },
+  {
+    "ts": "2025-06-29",
+    "ts_iso": "2025-04-13T22:26:58Z",
+    "type": "CLAIM",
+    "payload": {
+      "cpt": "80050",
+      "icd10": [
+        "E11.9",
+        "R53.83"
+      ],
+      "amount": 97.18,
+      "place_of_service": "11-Office"
     }
   }
 ]
