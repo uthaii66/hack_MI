@@ -1,0 +1,177 @@
+[
+  {
+    "ts": "2025-08-10",
+    "ts_iso": "2025-08-09T20:52:58Z",
+    "type": "APPOINTMENT",
+    "payload": {
+      "appt_type": "Lab Draw",
+      "provider": "NP R. Gomez",
+      "location": "Oak Valley Medical Office",
+      "start_iso": "2025-07-10T22:44:50Z",
+      "status": "Completed"
+    }
+  },
+  {
+    "ts": "2025-06-23",
+    "ts_iso": "2025-07-24T20:06:09Z",
+    "type": "ADT_DISCHARGE",
+    "payload": {
+      "facility_id": "FAC1002",
+      "facility": "Riverbend Medical",
+      "reason": null,
+      "disposition": "SNF"
+    }
+  },
+  {
+    "ts": "2025-04-21",
+    "ts_iso": "2025-07-15T12:53:06Z",
+    "type": "ADT_ADMIT",
+    "payload": {
+      "facility_id": "FAC1001",
+      "facility": "Oak Valley Hospital",
+      "reason": "Shortness of breath",
+      "disposition": null
+    }
+  },
+  {
+    "ts": "2025-06-03",
+    "ts_iso": "2025-07-07T16:45:29Z",
+    "type": "VITALS",
+    "payload": {
+      "bp_systolic": 121,
+      "bp_diastolic": 75,
+      "heart_rate": 109,
+      "resp_rate": 17,
+      "spo2": 95,
+      "temp_c": 38.8,
+      "bmi": 26.9,
+      "source": "Clinic"
+    }
+  },
+  {
+    "ts": "2025-07-28",
+    "ts_iso": "2025-07-03T04:44:35Z",
+    "type": "APPOINTMENT",
+    "payload": {
+      "appt_type": "Lab Draw",
+      "provider": "Dr. L. Chen",
+      "location": "Oak Valley Medical Office",
+      "start_iso": "2025-07-01T17:50:12Z",
+      "status": "Scheduled"
+    }
+  },
+  {
+    "ts": "2025-06-20",
+    "ts_iso": "2025-06-29T15:02:08Z",
+    "type": "LAB_RESULT",
+    "payload": {
+      "test_name": "Sodium",
+      "value": 140.07,
+      "unit": "mmol/L",
+      "ref_range": "135-145 mmol/L",
+      "flag": "N",
+      "performing_lab": "MetroLab",
+      "lo": 135,
+      "hi": 145,
+      "observation_id": "OBS971860"
+    }
+  },
+  {
+    "ts": "2025-07-19",
+    "ts_iso": "2025-06-22T03:34:28Z",
+    "type": "ADT_ADMIT",
+    "payload": {
+      "facility_id": "FAC1001",
+      "facility": "Oak Valley Hospital",
+      "reason": "Fever",
+      "disposition": null
+    }
+  },
+  {
+    "ts": "2025-08-03",
+    "ts_iso": "2025-06-11T03:27:00Z",
+    "type": "VITALS",
+    "payload": {
+      "bp_systolic": 154,
+      "bp_diastolic": 91,
+      "heart_rate": 58,
+      "resp_rate": 24,
+      "spo2": 97,
+      "temp_c": 38.7,
+      "bmi": 20.9,
+      "source": "Home device"
+    }
+  },
+  {
+    "ts": "2025-07-19",
+    "ts_iso": "2025-06-10T16:45:29Z",
+    "type": "CLAIM",
+    "payload": {
+      "cpt": "99214",
+      "icd10": [
+        "I10"
+      ],
+      "amount": 339.49,
+      "place_of_service": "11-Office"
+    }
+  },
+  {
+    "ts": "2025-04-27",
+    "ts_iso": "2025-05-22T18:47:07Z",
+    "type": "APPOINTMENT",
+    "payload": {
+      "appt_type": "Cardiology",
+      "provider": "NP R. Gomez",
+      "location": "Telehealth",
+      "start_iso": "2025-06-03T02:32:47Z",
+      "status": "Rescheduled"
+    }
+  },
+  {
+    "ts": "2025-05-11",
+    "ts_iso": "2025-05-18T09:03:55Z",
+    "type": "CLAIM",
+    "payload": {
+      "cpt": "99213",
+      "icd10": [
+        "E78.5",
+        "J06.9"
+      ],
+      "amount": 145.76,
+      "place_of_service": "22-OP Hospital"
+    }
+  },
+  {
+    "ts": "2025-06-26",
+    "ts_iso": "2025-05-05T04:10:40Z",
+    "type": "ADT_DISCHARGE",
+    "payload": {
+      "facility_id": "FAC1002",
+      "facility": "Riverbend Medical",
+      "reason": null,
+      "disposition": "SNF"
+    }
+  },
+  {
+    "ts": "2025-07-07",
+    "ts_iso": "2025-05-02T20:04:26Z",
+    "type": "ADT_DISCHARGE",
+    "payload": {
+      "facility_id": "FAC1002",
+      "facility": "Riverbend Medical",
+      "reason": null,
+      "disposition": "Home"
+    }
+  },
+  {
+    "ts": "2025-07-28",
+    "ts_iso": "2025-04-17T12:25:24Z",
+    "type": "ADT_DISCHARGE",
+    "payload": {
+      "facility_id": "FAC1001",
+      "facility": "Oak Valley Hospital",
+      "reason": null,
+      "disposition": "Home"
+    }
+  }
+]
