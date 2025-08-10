@@ -141,23 +141,29 @@ export default function App() {
     fetchSnapshot(memberId);
   }, []);
 
-  useEffect(() => { memberRef.current = memberId }, [memberId]);
+  useEffect(() => {
+    memberRef.current = memberId;
+  }, [memberId]);
 
   useEffect(() => {
     if (!live) return;
     const handle = setInterval(async () => {
       try {
-        const res = await fetch(`${API_BASE}/members/${memberRef.current}/tick`);
+        const res = await fetch(
+          `${API_BASE}/members/${memberRef.current}/tick`
+        );
         if (!res.ok) return;
         const j = await res.json();
-        if (j && j.event) setTimeline(prev => [j.event, ...prev]);
-      } catch { /* ignore transient errors */ }
+        if (j && j.event) setTimeline((prev) => [j.event, ...prev]);
+      } catch {
+        /* ignore transient errors */
+      }
     }, 8000); // every 8s
     return () => clearInterval(handle);
   }, [live]);
 
   const filteredTimeline = useMemo(() => {
-    return (timeline || []).filter((e) => {
+    const filtered = (timeline || []).filter((e) => {
       if (filterType !== "ALL" && e.type !== filterType) return false;
       if (!abnormalOnly) return true;
       // abnormal filter: labs with H/L flags; vitals with low SpO2 or high BP
@@ -177,6 +183,10 @@ export default function App() {
       }
       return false;
     });
+    // Sort alphabetically by event type
+    return filtered
+      .slice()
+      .sort((a, b) => (a.type || "").localeCompare(b.type || ""));
   }, [timeline, filterType, abnormalOnly]);
 
   const toggle = (idx) =>
@@ -191,15 +201,31 @@ export default function App() {
       ? "chip medium"
       : "chip low";
 
+  const recommendations =
+    data?.summary?.recommended_next_steps &&
+    Array.isArray(data.summary.recommended_next_steps)
+      ? data.summary.recommended_next_steps
+      : data?.summary?.recommended_steps &&
+        Array.isArray(data.summary.recommended_steps)
+      ? data.summary.recommended_steps
+      : data?.recommendations?.steps &&
+        Array.isArray(data.recommendations.steps)
+      ? data.recommendations.steps
+      : [];
+
   async function downloadFHIR(id) {
     try {
       const res = await fetch(`${API_BASE}/members/${id}/fhir`);
       if (!res.ok) throw new Error(`FHIR HTTP ${res.status}`);
       const json = await res.json();
-      const blob = new Blob([JSON.stringify(json, null, 2)], { type: 'application/fhir+json' });
+      const blob = new Blob([JSON.stringify(json, null, 2)], {
+        type: "application/fhir+json",
+      });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = `${id}_bundle.json`; a.click();
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${id}_bundle.json`;
+      a.click();
       URL.revokeObjectURL(url);
     } catch (e) {
       setError(e.message);
@@ -212,7 +238,7 @@ export default function App() {
         <h1 style={{ margin: 0, color: "#14213d" }}>
           Family Care Central — AI Snapshot (ML)
         </h1>
-        <div style={{ display: "flex", gap: 8, alignItems: 'center' }}>
+        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           <input
             className="input"
             value={memberId}
@@ -225,9 +251,23 @@ export default function App() {
           >
             {loading ? "Loading…" : "Generate Snapshot"}
           </button>
-          <button className="btn" onClick={() => downloadFHIR(memberId)} title="Download FHIR Bundle">FHIR</button>
-          <label className="muted" style={{ display:'flex', alignItems:'center', gap:6 }}>
-            <input type="checkbox" checked={live} onChange={e=>setLive(e.target.checked)} /> Live mode
+          <button
+            className="btn"
+            onClick={() => downloadFHIR(memberId)}
+            title="Download FHIR Bundle"
+          >
+            FHIR
+          </button>
+          <label
+            className="muted"
+            style={{ display: "flex", alignItems: "center", gap: 6 }}
+          >
+            <input
+              type="checkbox"
+              checked={live}
+              onChange={(e) => setLive(e.target.checked)}
+            />{" "}
+            Live mode
           </label>
         </div>
       </header>
@@ -260,15 +300,24 @@ export default function App() {
               </div>
               {data.profile && (
                 <div className="muted" style={{ marginTop: 6 }}>
-                  <strong>{data.profile.name}</strong> • Age {data.profile.age} • {data.profile.sex === 'F' ? 'Female' : 'Male'}
-                  {Array.isArray(data.profile.conditions) && data.profile.conditions.length > 0 && (
-                    <>
-                      {' '}• Conditions:
-                      {data.profile.conditions.map((c, idx) => (
-                        <span key={idx} className="tag" style={{ marginLeft: 6 }}>{c}</span>
-                      ))}
-                    </>
-                  )}
+                  <strong>{data.profile.name}</strong> • Age {data.profile.age}{" "}
+                  • {data.profile.sex === "F" ? "Female" : "Male"}
+                  {Array.isArray(data.profile.conditions) &&
+                    data.profile.conditions.length > 0 && (
+                      <>
+                        {" "}
+                        • Conditions:
+                        {data.profile.conditions.map((c, idx) => (
+                          <span
+                            key={idx}
+                            className="tag"
+                            style={{ marginLeft: 6 }}
+                          >
+                            {c}
+                          </span>
+                        ))}
+                      </>
+                    )}
                 </div>
               )}
               <div className="narratives">
@@ -335,6 +384,16 @@ export default function App() {
           ) : (
             <div className="muted">No abnormal labs.</div>
           )}
+          <div className="section-title">Recommended Next Steps</div>
+          {recommendations.length ? (
+            <ol>
+              {recommendations.map((step, i) => (
+                <li key={i}>{step}</li>
+              ))}
+            </ol>
+          ) : (
+            <div className="muted">No recommendations available.</div>
+          )}
         </div>
       )}
 
@@ -380,7 +439,7 @@ export default function App() {
               </div>
               {expanded[i] && (
                 <div className="details">
-                  <pre style={{ margin: 0, whiteSpace: 'pre-wrap' }}>
+                  <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>
                     {JSON.stringify(e.payload, null, 2)}
                   </pre>
                 </div>
