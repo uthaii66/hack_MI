@@ -363,8 +363,8 @@ def build_narratives(features: List[float], shap_vec: np.ndarray) -> List[str]:
     fmap = dict(zip(FEATURE_NAMES, features))
     s = dict(zip(FEATURE_NAMES, shap_vec))
 
-    def add(text): 
-        if text not in narratives: 
+    def add(text):
+        if text not in narratives:
             narratives.append(text)
 
     if s.get("recent_discharge", 0) > 0.05 and fmap.get("recent_discharge") == 1:
@@ -385,6 +385,62 @@ def build_narratives(features: List[float], shap_vec: np.ndarray) -> List[str]:
     if not narratives:
         add("Maintain routine care; review at next visit")
     return narratives[:5]
+
+# ------------------------------------------------------------------------------
+# Dynamic recommendations helper
+# ------------------------------------------------------------------------------
+def build_next_steps(profile: Dict[str, Any], events: List[Dict[str, Any]], features: List[float]) -> List[str]:
+    """Return prioritized, de-duplicated next steps from features + events."""
+    recs: List[str] = []
+    fmap = dict(zip(FEATURE_NAMES, features))
+
+    def add(txt: str):
+        if txt and txt not in recs:
+            recs.append(txt)
+
+    # 1) Transitions of care
+    if fmap.get("recent_discharge") == 1:
+        add("Schedule 7‑day post‑discharge follow‑up (TCM)")
+        add("Care coordinator outreach within 48h to reconcile meds")
+
+    # 2) Vitals-based prompts
+    if fmap.get("high_bp_count", 0) >= 2:
+        add("Optimize hypertension regimen; add home BP log for 2 weeks")
+    elif fmap.get("high_bp_count", 0) == 1:
+        add("Recheck BP next visit; consider ambulatory monitoring")
+
+    if fmap.get("low_spo2_count", 0) >= 1:
+        add("Assess hypoxia cause; check pulse oximetry and respiratory symptoms")
+
+    # 3) Lab trends and abnormalities
+    if fmap.get("creatinine_trend", 0) > 0.05:
+        add("Repeat BMP/creatinine in 1–2 weeks; review nephrotoxic meds")
+
+    abnormal_labs = [e for e in events if e.get("type") == "LAB_RESULT" and e.get("payload", {}).get("flag") in ("H","L")]
+    for e in abnormal_labs[:5]:
+        name = e["payload"].get("test_name")
+        flag = e["payload"].get("flag")
+        if name == "A1C" and flag == "H":
+            add("Endocrinology follow‑up; reinforce diabetes self‑management and Metformin adherence")
+        if name == "Sodium" and flag in ("H","L"):
+            add("Evaluate dysnatremia; review fluids and medications")
+        if name == "Potassium" and flag in ("H","L"):
+            add("Address potassium abnormality; check meds (ACEi/diuretics)")
+        if name == "Hemoglobin" and flag == "L":
+            add("Assess anemia; consider iron studies and stool occult blood")
+
+    # 4) Utilization signal
+    if fmap.get("claims_last_60d", 0) >= 3:
+        add("Care coordination review of utilization in last 60 days")
+
+    # 5) Medication adherence/context
+    if fmap.get("med_refill_count", 0) == 0 and any("T2D" in profile.get("conditions", [])):
+        add("Medication review for diabetes; confirm refills and access")
+
+    # Always cap and provide fallback
+    if not recs:
+        recs = ["Follow‑up per care plan"]
+    return recs[:6]
 
 # ------------------------------------------------------------------------------
 # Endpoints
@@ -446,6 +502,9 @@ def get_snapshot(member_id: str):
         shap_plot = ""  # degrade gracefully
         narratives = ["Model explanation unavailable — using heuristic factors"]
 
+    # Dynamic recommendations based on features + events
+    next_steps = build_next_steps(profile, events, fvec_list)
+
     # Summary block (unchanged logic; now on richer events)
     abnormal_labs = [{
         "name": e["payload"]["test_name"],
@@ -461,7 +520,7 @@ def get_snapshot(member_id: str):
             f"{sum(1 for e in events if e['type']=='ADT_ADMIT')} admissions; {sum(1 for e in events if e['type']=='ADT_DISCHARGE')} discharges"
         ],
         "abnormal_labs": abnormal_labs,
-        "recommended_next_steps": ["Follow-up per care plan"]
+        "recommended_next_steps": next_steps
     }
 
     return {
