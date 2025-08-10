@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const API_BASE = "http://localhost:8000/api";
 
@@ -79,7 +79,7 @@ function RiskGauge({ prob, label }) {
 function FactorBars({ factors }) {
   // Expect strings like "feature: impact -0.23"; negative = protective (green), positive = risk (red)
   const parsed = (factors || []).map((f) => {
-    const m = f.match(/^(.*?): impact\\s*(-?\\d+(?:\\.\\d+)?)/);
+    const m = f.match(/^(.*?): impact\s*(-?\d+(?:\.\d+)?)/);
     return m
       ? { name: m[1], impact: parseFloat(m[2]) }
       : { name: f, impact: 0 };
@@ -112,6 +112,9 @@ export default function App() {
   const [expanded, setExpanded] = useState({});
   const [filterType, setFilterType] = useState("ALL");
   const [abnormalOnly, setAbnormalOnly] = useState(false);
+  const [live, setLive] = useState(false);
+
+  const memberRef = useRef(memberId);
 
   async function fetchSnapshot(id) {
     try {
@@ -137,6 +140,21 @@ export default function App() {
   useEffect(() => {
     fetchSnapshot(memberId);
   }, []);
+
+  useEffect(() => { memberRef.current = memberId }, [memberId]);
+
+  useEffect(() => {
+    if (!live) return;
+    const handle = setInterval(async () => {
+      try {
+        const res = await fetch(`${API_BASE}/members/${memberRef.current}/tick`);
+        if (!res.ok) return;
+        const j = await res.json();
+        if (j && j.event) setTimeline(prev => [j.event, ...prev]);
+      } catch { /* ignore transient errors */ }
+    }, 8000); // every 8s
+    return () => clearInterval(handle);
+  }, [live]);
 
   const filteredTimeline = useMemo(() => {
     return (timeline || []).filter((e) => {
@@ -173,13 +191,28 @@ export default function App() {
       ? "chip medium"
       : "chip low";
 
+  async function downloadFHIR(id) {
+    try {
+      const res = await fetch(`${API_BASE}/members/${id}/fhir`);
+      if (!res.ok) throw new Error(`FHIR HTTP ${res.status}`);
+      const json = await res.json();
+      const blob = new Blob([JSON.stringify(json, null, 2)], { type: 'application/fhir+json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `${id}_bundle.json`; a.click();
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      setError(e.message);
+    }
+  }
+
   return (
     <div className="container">
       <header>
         <h1 style={{ margin: 0, color: "#14213d" }}>
           Family Care Central — AI Snapshot (ML)
         </h1>
-        <div style={{ display: "flex", gap: 8 }}>
+        <div style={{ display: "flex", gap: 8, alignItems: 'center' }}>
           <input
             className="input"
             value={memberId}
@@ -192,6 +225,10 @@ export default function App() {
           >
             {loading ? "Loading…" : "Generate Snapshot"}
           </button>
+          <button className="btn" onClick={() => downloadFHIR(memberId)} title="Download FHIR Bundle">FHIR</button>
+          <label className="muted" style={{ display:'flex', alignItems:'center', gap:6 }}>
+            <input type="checkbox" checked={live} onChange={e=>setLive(e.target.checked)} /> Live mode
+          </label>
         </div>
       </header>
 
@@ -221,6 +258,19 @@ export default function App() {
               <div className="subtitle muted">
                 Risk predicted with XGBoost; SHAP visual & factors
               </div>
+              {data.profile && (
+                <div className="muted" style={{ marginTop: 6 }}>
+                  <strong>{data.profile.name}</strong> • Age {data.profile.age} • {data.profile.sex === 'F' ? 'Female' : 'Male'}
+                  {Array.isArray(data.profile.conditions) && data.profile.conditions.length > 0 && (
+                    <>
+                      {' '}• Conditions:
+                      {data.profile.conditions.map((c, idx) => (
+                        <span key={idx} className="tag" style={{ marginLeft: 6 }}>{c}</span>
+                      ))}
+                    </>
+                  )}
+                </div>
+              )}
               <div className="narratives">
                 {(data.risk?.narratives || []).map((n, i) => (
                   <span className="tag" key={i}>
@@ -321,21 +371,21 @@ export default function App() {
         </div>
         <div className="section-title">Recent Events</div>
         {filteredTimeline.map((e, i) => (
-          <div className="event" key={i} onClick={() => toggle(i)}>
-            <div className="event-head">
-              <EventIcon type={e.type} />
-              <div>
-                <strong>{e.type}</strong> —{" "}
-                <span className="muted">{e.ts_iso || e.ts}</span>
+          <div className="timeline-event" key={i} onClick={() => toggle(i)}>
+            <EventIcon type={e.type} />
+            <div className="content">
+              <div className="header">
+                <div className="title">{e.type}</div>
+                <div className="date">{e.ts_iso || e.ts}</div>
               </div>
+              {expanded[i] && (
+                <div className="details">
+                  <pre style={{ margin: 0, whiteSpace: 'pre-wrap' }}>
+                    {JSON.stringify(e.payload, null, 2)}
+                  </pre>
+                </div>
+              )}
             </div>
-            {expanded[i] && (
-              <div className="detail">
-                <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>
-                  {JSON.stringify(e.payload, null, 2)}
-                </pre>
-              </div>
-            )}
           </div>
         ))}
         {!filteredTimeline.length && (
