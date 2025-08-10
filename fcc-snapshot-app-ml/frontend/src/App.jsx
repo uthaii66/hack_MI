@@ -113,6 +113,7 @@ export default function App() {
   const [filterType, setFilterType] = useState("ALL");
   const [abnormalOnly, setAbnormalOnly] = useState(false);
   const [live, setLive] = useState(false);
+  const [sectionsOpen, setSectionsOpen] = useState({});
 
   const memberRef = useRef(memberId);
 
@@ -183,11 +184,25 @@ export default function App() {
       }
       return false;
     });
-    // Sort alphabetically by event type
-    return filtered
-      .slice()
-      .sort((a, b) => (a.type || "").localeCompare(b.type || ""));
+    // Keep natural order, no sorting
+    return filtered;
   }, [timeline, filterType, abnormalOnly]);
+
+  const groupedByType = useMemo(() => {
+    const groups = {};
+    filteredTimeline.forEach((e) => {
+      if (!groups[e.type]) groups[e.type] = [];
+      groups[e.type].push(e);
+    });
+    return groups;
+  }, [filteredTimeline]);
+
+  const typeOrder = ALL_TYPES.filter((t) => t !== "ALL");
+  const visibleTypes = typeOrder.filter((t) => groupedByType[t] && groupedByType[t].length > 0);
+
+  const toggleSection = (type) => {
+    setSectionsOpen((prev) => ({ ...prev, [type]: !prev[type] }));
+  };
 
   const toggle = (idx) =>
     setExpanded((prev) => ({ ...prev, [idx]: !prev[idx] }));
@@ -429,27 +444,55 @@ export default function App() {
           </div>
         </div>
         <div className="section-title">Recent Events</div>
-        {filteredTimeline.map((e, i) => (
-          <div className="timeline-event" key={i} onClick={() => toggle(i)}>
-            <EventIcon type={e.type} />
-            <div className="content">
-              <div className="header">
-                <div className="title">{e.type}</div>
-                <div className="date">{e.ts_iso || e.ts}</div>
-              </div>
-              {expanded[i] && (
-                <div className="details">
-                  <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>
-                    {JSON.stringify(e.payload, null, 2)}
-                  </pre>
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-        {!filteredTimeline.length && (
+        {visibleTypes.length === 0 && (
           <div className="muted">No events match the filter.</div>
         )}
+        {visibleTypes.map((type) => (
+          <div key={type}>
+            <div
+              className="row"
+              style={{
+                cursor: "pointer",
+                userSelect: "none",
+                backgroundColor: "#f0f0f0",
+                padding: "6px 10px",
+                marginBottom: 4,
+                alignItems: "center",
+                gap: 8,
+              }}
+              onClick={() => toggleSection(type)}
+            >
+              <EventIcon type={type} />
+              <strong>{type}</strong> ({groupedByType[type].length})
+              <span style={{ marginLeft: "auto" }}>
+                {sectionsOpen[type] ? "▼" : "▶"}
+              </span>
+            </div>
+            {sectionsOpen[type] &&
+              groupedByType[type].map((e, i) => (
+                <div
+                  className="timeline-event"
+                  key={i}
+                  onClick={() => toggle(i)}
+                >
+                  <EventIcon type={e.type} />
+                  <div className="content">
+                    <div className="header">
+                      <div className="title">{e.type}</div>
+                      <div className="date">{e.ts_iso || e.ts}</div>
+                    </div>
+                    {expanded[i] && (
+                      <div className="details">
+                        <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>
+                          {JSON.stringify(e.payload, null, 2)}
+                        </pre>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+          </div>
+        ))}
       </div>
 
       {data && (
