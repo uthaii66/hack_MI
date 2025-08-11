@@ -1,0 +1,251 @@
+{
+  "member_id": "MEM12345",
+  "profile": {
+    "member_id": "MEM12345",
+    "name": "Member 2345",
+    "age": 51,
+    "sex": "F",
+    "conditions": [
+      "HTN"
+    ],
+    "tendencies": {
+      "a1c_mean": 5.4,
+      "a1c_sd": 0.3,
+      "hgb_mean": 12.8,
+      "hgb_sd": 1.1,
+      "sbp_mean": 142,
+      "sbp_sd": 12,
+      "dbp_mean": 88,
+      "dbp_sd": 8
+    }
+  },
+  "events": [
+    {
+      "ts": "2025-07-28",
+      "ts_iso": "2025-07-28T22:04:15Z",
+      "type": "LAB_RESULT",
+      "payload": {
+        "test_name": "A1C",
+        "value": 5.9,
+        "unit": "%",
+        "ref_range": "4.0-5.6 %",
+        "flag": "H",
+        "performing_lab": "MetroLab",
+        "lo": 4.0,
+        "hi": 5.6,
+        "observation_id": "OBS729994"
+      }
+    },
+    {
+      "ts": "2025-06-29",
+      "ts_iso": "2025-07-25T02:38:07Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Metformin 500 mg",
+        "days_supply": 60,
+        "pharmacy": "GoodHealth Pharmacy",
+        "refill_date": "2025-04-30T13:02:51Z",
+        "adherence_estimate": 0.92
+      }
+    },
+    {
+      "ts": "2025-07-16",
+      "ts_iso": "2025-07-16T11:55:50Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Lisinopril 10 mg",
+        "days_supply": 90,
+        "pharmacy": "GoodHealth Pharmacy",
+        "refill_date": "2025-07-30T23:18:19Z",
+        "adherence_estimate": 0.71
+      }
+    },
+    {
+      "ts": "2025-04-14",
+      "ts_iso": "2025-07-14T16:59:51Z",
+      "type": "VITALS",
+      "payload": {
+        "bp_systolic": 140,
+        "bp_diastolic": 84,
+        "heart_rate": 67,
+        "resp_rate": 15,
+        "spo2": 94,
+        "temp_c": 36.7,
+        "bmi": 32.2,
+        "source": "Clinic"
+      }
+    },
+    {
+      "ts": "2025-07-05",
+      "ts_iso": "2025-07-14T15:12:37Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1001",
+        "facility": "Oak Valley Hospital",
+        "reason": "Syncope",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-05-03",
+      "ts_iso": "2025-07-10T19:49:35Z",
+      "type": "VITALS",
+      "payload": {
+        "bp_systolic": 149,
+        "bp_diastolic": 86,
+        "heart_rate": 68,
+        "resp_rate": 14,
+        "spo2": 93,
+        "temp_c": 36.4,
+        "bmi": 31.3,
+        "source": "Home device"
+      }
+    },
+    {
+      "ts": "2025-06-02",
+      "ts_iso": "2025-06-28T06:58:02Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Telehealth Follow-up",
+        "provider": "NP R. Gomez",
+        "location": "Telehealth",
+        "start_iso": "2025-06-22T06:53:52Z",
+        "status": "Scheduled"
+      }
+    },
+    {
+      "ts": "2025-05-12",
+      "ts_iso": "2025-06-20T06:13:57Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Endocrinology",
+        "provider": "Dr. L. Chen",
+        "location": "Oak Valley Medical Office",
+        "start_iso": "2025-06-15T08:37:26Z",
+        "status": "Scheduled"
+      }
+    },
+    {
+      "ts": "2025-07-11",
+      "ts_iso": "2025-06-15T12:51:13Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1003",
+        "facility": "Sunrise Clinic",
+        "reason": "Hyperglycemia",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-06-12",
+      "ts_iso": "2025-06-13T17:51:26Z",
+      "type": "VITALS",
+      "payload": {
+        "bp_systolic": 137,
+        "bp_diastolic": 89,
+        "heart_rate": 61,
+        "resp_rate": 20,
+        "spo2": 99,
+        "temp_c": 36.9,
+        "bmi": 28.1,
+        "source": "Clinic"
+      }
+    },
+    {
+      "ts": "2025-05-03",
+      "ts_iso": "2025-05-27T21:03:37Z",
+      "type": "CLAIM",
+      "payload": {
+        "cpt": "83036",
+        "icd10": [
+          "E03.9",
+          "M54.5"
+        ],
+        "amount": 248.75,
+        "place_of_service": "11-Office"
+      }
+    },
+    {
+      "ts": "2025-05-17",
+      "ts_iso": "2025-05-15T14:01:12Z",
+      "type": "CLAIM",
+      "payload": {
+        "cpt": "99214",
+        "icd10": [
+          "E11.9"
+        ],
+        "amount": 158.67,
+        "place_of_service": "11-Office"
+      }
+    },
+    {
+      "ts": "2025-05-04",
+      "ts_iso": "2025-05-09T18:13:56Z",
+      "type": "LAB_RESULT",
+      "payload": {
+        "test_name": "A1C",
+        "value": 5.46,
+        "unit": "%",
+        "ref_range": "4.0-5.6 %",
+        "flag": "N",
+        "performing_lab": "MetroLab",
+        "lo": 4.0,
+        "hi": 5.6,
+        "observation_id": "OBS542945"
+      }
+    },
+    {
+      "ts": "2025-07-30",
+      "ts_iso": "2025-05-04T03:55:57Z",
+      "type": "ADT_DISCHARGE",
+      "payload": {
+        "facility_id": "FAC1001",
+        "facility": "Oak Valley Hospital",
+        "reason": null,
+        "disposition": "Home"
+      }
+    },
+    {
+      "ts": "2025-04-26",
+      "ts_iso": "2025-04-23T00:39:48Z",
+      "type": "VITALS",
+      "payload": {
+        "bp_systolic": 150,
+        "bp_diastolic": 83,
+        "heart_rate": 95,
+        "resp_rate": 21,
+        "spo2": 95,
+        "temp_c": 37.3,
+        "bmi": 27.3,
+        "source": "Clinic"
+      }
+    },
+    {
+      "ts": "2025-05-02",
+      "ts_iso": "2025-04-21T20:45:52Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Primary Care",
+        "provider": "NP R. Gomez",
+        "location": "Oak Valley Medical Office",
+        "start_iso": "2025-07-21T16:06:54Z",
+        "status": "Completed"
+      }
+    },
+    {
+      "ts": "2025-07-15",
+      "ts_iso": "2025-04-14T03:33:38Z",
+      "type": "VITALS",
+      "payload": {
+        "bp_systolic": 132,
+        "bp_diastolic": 107,
+        "heart_rate": 60,
+        "resp_rate": 20,
+        "spo2": 99,
+        "temp_c": 38.2,
+        "bmi": 22.7,
+        "source": "Clinic"
+      }
+    }
+  ]
+}

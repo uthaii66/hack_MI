@@ -2,12 +2,12 @@
   "member_id": "MEM12345",
   "features": {
     "recent_discharge": 0,
-    "abnormal_lab_count": 1,
-    "claims_last_60d": 1,
-    "med_refill_count": 1,
+    "abnormal_lab_count": 0,
+    "claims_last_60d": 2,
+    "med_refill_count": 5,
     "creatinine_trend": 0.0,
-    "low_spo2_count": 2,
-    "high_bp_count": 2
+    "low_spo2_count": 0,
+    "high_bp_count": 1
   },
   "events_count": 14
 }

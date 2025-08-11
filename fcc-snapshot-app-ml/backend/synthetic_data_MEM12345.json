@@ -21,191 +21,190 @@
   },
   "events": [
     {
-      "ts": "2025-06-15",
-      "ts_iso": "2025-08-01T19:46:20Z",
-      "type": "VITALS",
-      "payload": {
-        "bp_systolic": 140,
-        "bp_diastolic": 71,
-        "heart_rate": 109,
-        "resp_rate": 14,
-        "spo2": 92,
-        "temp_c": 38.5,
-        "bmi": 22.9,
-        "source": "Home device"
-      }
-    },
-    {
-      "ts": "2025-06-28",
-      "ts_iso": "2025-07-26T01:22:10Z",
-      "type": "LAB_RESULT",
-      "payload": {
-        "test_name": "Creatinine",
-        "value": 0.7,
-        "unit": "mg/dL",
-        "ref_range": "0.6-1.3 mg/dL",
-        "flag": "N",
-        "performing_lab": "Pinecrest Diagnostics",
-        "lo": 0.6,
-        "hi": 1.3,
-        "observation_id": "OBS751682"
-      }
-    },
-    {
-      "ts": "2025-06-23",
-      "ts_iso": "2025-07-22T21:35:19Z",
+      "ts": "2025-07-01",
+      "ts_iso": "2025-08-08T23:59:02Z",
       "type": "CLAIM",
       "payload": {
-        "cpt": "99214",
-        "icd10": [
-          "E03.9",
-          "E11.9"
-        ],
-        "amount": 123.37,
-        "place_of_service": "22-OP Hospital"
-      }
-    },
-    {
-      "ts": "2025-06-01",
-      "ts_iso": "2025-07-16T20:14:54Z",
-      "type": "ADT_ADMIT",
-      "payload": {
-        "facility_id": "FAC1001",
-        "facility": "Oak Valley Hospital",
-        "reason": "Shortness of breath",
-        "disposition": null
-      }
-    },
-    {
-      "ts": "2025-04-19",
-      "ts_iso": "2025-07-15T17:44:14Z",
-      "type": "ADT_ADMIT",
-      "payload": {
-        "facility_id": "FAC1002",
-        "facility": "Riverbend Medical",
-        "reason": "Hyperglycemia",
-        "disposition": null
-      }
-    },
-    {
-      "ts": "2025-06-27",
-      "ts_iso": "2025-07-15T11:07:13Z",
-      "type": "ADT_ADMIT",
-      "payload": {
-        "facility_id": "FAC1001",
-        "facility": "Oak Valley Hospital",
-        "reason": "Hyperglycemia",
-        "disposition": null
-      }
-    },
-    {
-      "ts": "2025-07-19",
-      "ts_iso": "2025-06-20T09:56:06Z",
-      "type": "VITALS",
-      "payload": {
-        "bp_systolic": 143,
-        "bp_diastolic": 102,
-        "heart_rate": 83,
-        "resp_rate": 22,
-        "spo2": 92,
-        "temp_c": 36.2,
-        "bmi": 29.9,
-        "source": "Home device"
-      }
-    },
-    {
-      "ts": "2025-05-29",
-      "ts_iso": "2025-06-11T02:03:36Z",
-      "type": "VITALS",
-      "payload": {
-        "bp_systolic": 149,
-        "bp_diastolic": 77,
-        "heart_rate": 85,
-        "resp_rate": 21,
-        "spo2": 95,
-        "temp_c": 38.5,
-        "bmi": 33.3,
-        "source": "Home device"
-      }
-    },
-    {
-      "ts": "2025-06-05",
-      "ts_iso": "2025-06-05T09:22:21Z",
-      "type": "APPOINTMENT",
-      "payload": {
-        "appt_type": "Lab Draw",
-        "provider": "NP R. Gomez",
-        "location": "Telehealth",
-        "start_iso": "2025-07-21T02:13:41Z",
-        "status": "Scheduled"
-      }
-    },
-    {
-      "ts": "2025-06-12",
-      "ts_iso": "2025-05-18T04:52:20Z",
-      "type": "CLAIM",
-      "payload": {
-        "cpt": "99213",
+        "cpt": "83036",
         "icd10": [
           "J06.9"
         ],
-        "amount": 282.57,
+        "amount": 63.85,
         "place_of_service": "11-Office"
       }
     },
     {
-      "ts": "2025-06-29",
-      "ts_iso": "2025-05-16T10:18:15Z",
-      "type": "LAB_RESULT",
+      "ts": "2025-07-26",
+      "ts_iso": "2025-08-08T03:51:42Z",
+      "type": "MED_REFILL",
       "payload": {
-        "test_name": "A1C",
-        "value": 5.09,
-        "unit": "%",
-        "ref_range": "4.0-5.6 %",
-        "flag": "N",
-        "performing_lab": "MetroLab",
-        "lo": 4.0,
-        "hi": 5.6,
-        "observation_id": "OBS392708"
+        "drug": "Lisinopril 10 mg",
+        "days_supply": 30,
+        "pharmacy": "GoodHealth Pharmacy",
+        "refill_date": "2025-08-03T18:46:40Z",
+        "adherence_estimate": 0.73
       }
     },
     {
-      "ts": "2025-07-04",
-      "ts_iso": "2025-05-10T17:58:33Z",
-      "type": "MED_REFILL",
+      "ts": "2025-07-09",
+      "ts_iso": "2025-08-06T18:00:31Z",
+      "type": "LAB_RESULT",
       "payload": {
-        "drug": "Atorvastatin 20 mg",
-        "days_supply": 90,
-        "pharmacy": "GoodHealth Pharmacy",
-        "refill_date": "2025-06-19T15:53:50Z",
-        "adherence_estimate": 0.66
+        "test_name": "Sodium",
+        "value": 137.56,
+        "unit": "mmol/L",
+        "ref_range": "135-145 mmol/L",
+        "flag": "N",
+        "performing_lab": "MetroLab",
+        "lo": 135,
+        "hi": 145,
+        "observation_id": "OBS873723"
       }
     },
     {
       "ts": "2025-07-11",
-      "ts_iso": "2025-04-30T11:13:34Z",
-      "type": "LAB_RESULT",
+      "ts_iso": "2025-07-26T09:08:45Z",
+      "type": "CLAIM",
       "payload": {
-        "test_name": "Sodium",
-        "value": 104.95,
-        "unit": "mmol/L",
-        "ref_range": "135-145 mmol/L",
-        "flag": "L",
-        "performing_lab": "MetroLab",
-        "lo": 135,
-        "hi": 145,
-        "observation_id": "OBS411450"
+        "cpt": "99214",
+        "icd10": [
+          "I10",
+          "R73.03"
+        ],
+        "amount": 116.9,
+        "place_of_service": "22-OP Hospital"
       }
     },
     {
-      "ts": "2025-05-14",
-      "ts_iso": "2025-04-24T07:57:07Z",
-      "type": "ADT_ADMIT",
+      "ts": "2025-05-10",
+      "ts_iso": "2025-07-14T01:47:23Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Atorvastatin 20 mg",
+        "days_supply": 90,
+        "pharmacy": "CareFirst Rx",
+        "refill_date": "2025-06-14T04:06:21Z",
+        "adherence_estimate": 0.79
+      }
+    },
+    {
+      "ts": "2025-07-29",
+      "ts_iso": "2025-07-12T03:40:53Z",
+      "type": "VITALS",
+      "payload": {
+        "bp_systolic": 156,
+        "bp_diastolic": 88,
+        "heart_rate": 107,
+        "resp_rate": 14,
+        "spo2": 100,
+        "temp_c": 36.2,
+        "bmi": 28.8,
+        "source": "Clinic"
+      }
+    },
+    {
+      "ts": "2025-07-17",
+      "ts_iso": "2025-06-08T04:27:48Z",
+      "type": "LAB_RESULT",
+      "payload": {
+        "test_name": "Sodium",
+        "value": 140.9,
+        "unit": "mmol/L",
+        "ref_range": "135-145 mmol/L",
+        "flag": "N",
+        "performing_lab": "Pinecrest Diagnostics",
+        "lo": 135,
+        "hi": 145,
+        "observation_id": "OBS280129"
+      }
+    },
+    {
+      "ts": "2025-04-24",
+      "ts_iso": "2025-05-20T14:48:40Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Lisinopril 10 mg",
+        "days_supply": 90,
+        "pharmacy": "MediPlus Pharmacy",
+        "refill_date": "2025-05-24T01:49:54Z",
+        "adherence_estimate": 0.71
+      }
+    },
+    {
+      "ts": "2025-07-25",
+      "ts_iso": "2025-05-20T04:46:51Z",
+      "type": "LAB_RESULT",
+      "payload": {
+        "test_name": "Creatinine",
+        "value": 1.04,
+        "unit": "mg/dL",
+        "ref_range": "0.6-1.3 mg/dL",
+        "flag": "N",
+        "performing_lab": "MetroLab",
+        "lo": 0.6,
+        "hi": 1.3,
+        "observation_id": "OBS710996"
+      }
+    },
+    {
+      "ts": "2025-06-04",
+      "ts_iso": "2025-05-17T20:45:59Z",
+      "type": "ADT_DISCHARGE",
       "payload": {
         "facility_id": "FAC1002",
         "facility": "Riverbend Medical",
-        "reason": "Chest pain",
-        "disposition": null
+        "reason": null,
+        "disposition": "Rehab"
+      }
+    },
+    {
+      "ts": "2025-06-02",
+      "ts_iso": "2025-05-15T05:13:15Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Metformin 500 mg",
+        "days_supply": 60,
+        "pharmacy": "MediPlus Pharmacy",
+        "refill_date": "2025-07-10T00:31:56Z",
+        "adherence_estimate": 0.97
+      }
+    },
+    {
+      "ts": "2025-04-27",
+      "ts_iso": "2025-05-08T16:01:48Z",
+      "type": "CLAIM",
+      "payload": {
+        "cpt": "99213",
+        "icd10": [
+          "E03.9",
+          "M54.5"
+        ],
+        "amount": 99.02,
+        "place_of_service": "22-OP Hospital"
+      }
+    },
+    {
+      "ts": "2025-08-10",
+      "ts_iso": "2025-04-23T07:29:46Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Metformin 500 mg",
+        "days_supply": 30,
+        "pharmacy": "CareFirst Rx",
+        "refill_date": "2025-06-24T23:23:06Z",
+        "adherence_estimate": 0.82
+      }
+    },
+    {
+      "ts": "2025-04-17",
+      "ts_iso": "2025-04-14T14:03:31Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Cardiology",
+        "provider": "Dr. L. Chen",
+        "location": "Oak Valley Medical Office",
+        "start_iso": "2025-05-31T18:50:04Z",
+        "status": "Scheduled"
       }
     }
   ]

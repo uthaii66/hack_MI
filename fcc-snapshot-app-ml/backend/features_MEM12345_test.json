@@ -1,0 +1,13 @@
+{
+  "member_id": "MEM12345",
+  "features": {
+    "recent_discharge": 0,
+    "abnormal_lab_count": 1,
+    "claims_last_60d": 0,
+    "med_refill_count": 2,
+    "creatinine_trend": 0.0,
+    "low_spo2_count": 1,
+    "high_bp_count": 3
+  },
+  "events_count": 17
+}

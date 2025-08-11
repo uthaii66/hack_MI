@@ -9,7 +9,7 @@ import uuid, io, base64, json, random
 
 # --- typing & pydantic/fastapi
 from typing import List, Dict, Any, Optional
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query,Body
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -445,6 +445,110 @@ def build_next_steps(profile: Dict[str, Any], events: List[Dict[str, Any]], feat
 # ------------------------------------------------------------------------------
 # Endpoints
 # ------------------------------------------------------------------------------
+
+@app.post("/api/test_snapshot", response_model=SnapshotResponse)
+def test_snapshot(
+    payload: dict = Body(...)
+):
+    model, explainer = get_model_and_explainer()
+    member_id = payload.get("member_id", "ANON")
+    profile = payload.get("profile", {})
+    events = payload.get("events", [])
+
+    # Save full synthetic data (profile and events) to a JSON file
+    try:
+        synth_path = os.path.join(os.path.dirname(__file__), f"synthetic_data_{member_id}_test.json")
+        with open(synth_path, "w") as f:
+            json.dump({
+                "member_id": member_id,
+                "profile": profile,
+                "events": events
+            }, f, indent=2)
+    except Exception as e:
+        print(f"[WARN] Could not save synthetic data for {member_id}: {e}")
+
+    # Features + predict
+    fvec_list = extract_features(events)
+    # Save extracted features to a JSON file before sending to model
+    try:
+        save_path = os.path.join(os.path.dirname(__file__), f"features_{member_id}_test.json")
+        with open(save_path, "w") as f:
+            json.dump({
+                "member_id": member_id,
+                "features": dict(zip(FEATURE_NAMES, fvec_list)),
+                "events_count": len(events)
+            }, f, indent=2)
+    except Exception as e:
+        print(f"[WARN] Could not save features for {member_id}: {e}")
+
+    fvec = np.array(fvec_list, dtype=float).reshape(1, -1)
+    dtest = xgb.DMatrix(fvec, feature_names=FEATURE_NAMES)
+    probs = model.predict(dtest)[0]  # [LOW, MEDIUM, HIGH]
+    pred_class = int(np.argmax(probs))
+    label_map = {0:"LOW",1:"MEDIUM",2:"HIGH"}
+    label = label_map[pred_class]
+    # SHAP (robust to SHAP/XGBoost versions)
+    try:
+        res = explainer(fvec)  # new SHAP API
+        vals = getattr(res, "values", None)
+        if vals is None:
+            raise RuntimeError("SHAP returned no values")
+        if vals.ndim == 3:
+            sv = np.asarray(vals[0, :, pred_class], dtype=float)
+        elif vals.ndim == 2:
+            sv = np.asarray(vals[0, :], dtype=float)
+        else:
+            raise RuntimeError(f"Unexpected SHAP values shape: {vals.shape}")
+        order = np.argsort(np.abs(sv))[::-1]
+        top_idx = [int(i) for i in order[:3]]
+        factors = [f"{FEATURE_NAMES[i]}: impact {sv[i]:.2f}" for i in top_idx]
+        shap_plot = shap_image_base64(fvec_list, sv)
+        narratives = build_narratives(fvec_list, sv)
+    except Exception as e:
+        print(f"[WARN] SHAP explanation failed: {e}")
+        feats = fvec_list
+        order = np.argsort(np.abs(np.asarray(feats)))[::-1]
+        top_idx = [int(i) for i in order[:3]]
+        labels = FEATURE_NAMES
+        factors = [f"{labels[i]}: value {feats[i]}" for i in top_idx]
+        shap_plot = ""  # degrade gracefully
+        narratives = ["Model explanation unavailable — using heuristic factors"]
+
+    # Dynamic recommendations based on features + events
+    next_steps = build_next_steps(profile, events, fvec_list)
+
+    # Summary block (unchanged logic; now on richer events)
+    abnormal_labs = [{
+        "name": e["payload"]["test_name"],
+        "value": e["payload"]["value"],
+        "unit": e["payload"]["unit"],
+        "flag": e["payload"]["flag"]
+    } for e in events if e["type"]=="LAB_RESULT" and e["payload"].get("flag") in ["H","L"]][:5]
+
+    summary = {
+        "recent_events": events[:5],
+        "key_findings": [
+            f"{len(abnormal_labs)} abnormal lab(s) in last 120 days",
+            f"{sum(1 for e in events if e['type']=='ADT_ADMIT')} admissions; {sum(1 for e in events if e['type']=='ADT_DISCHARGE')} discharges"
+        ],
+        "abnormal_labs": abnormal_labs,
+        "recommended_next_steps": next_steps
+    }
+
+    return {
+        "member_id": member_id,
+        "generated_at": datetime.utcnow().isoformat() + "Z",
+        "profile": profile,
+        "risk": {
+            "score": float(max(probs)),
+            "label": label,
+            "factors": factors,
+            "narratives": narratives,
+            "shap_plot": shap_plot,
+        },
+        "summary": summary
+    }
+
 @app.get("/api/members/{member_id}/timeline", response_model=TimelineResponse)
 def get_timeline(member_id: str, days: int = Query(120, ge=1, le=365), n: int = Query(12, ge=1, le=200)):
     profile = generate_member_profile(member_id)
