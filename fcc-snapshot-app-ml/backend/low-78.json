@@ -1,0 +1,195 @@
+{
+  "member_id": "MEM12345",
+  "profile": {
+    "member_id": "MEM12345",
+    "name": "Member 2345",
+    "age": 51,
+    "sex": "F",
+    "conditions": ["HTN"],
+    "tendencies": {
+      "a1c_mean": 5.4,
+      "a1c_sd": 0.3,
+      "hgb_mean": 12.8,
+      "hgb_sd": 1.1,
+      "sbp_mean": 142,
+      "sbp_sd": 12,
+      "dbp_mean": 88,
+      "dbp_sd": 8
+    }
+  },
+  "events": [
+    {
+      "ts": "2025-06-19",
+      "ts_iso": "2025-07-31T20:08:46Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Lisinopril 10 mg",
+        "days_supply": 60,
+        "pharmacy": "MediPlus Pharmacy",
+        "refill_date": "2025-07-08T16:40:25Z",
+        "adherence_estimate": 0.87
+      }
+    },
+    {
+      "ts": "2025-05-02",
+      "ts_iso": "2025-07-23T06:48:46Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Primary Care",
+        "provider": "Dr. M. Patel",
+        "location": "Telehealth",
+        "start_iso": "2025-04-26T08:37:48Z",
+        "status": "Rescheduled"
+      }
+    },
+    {
+      "ts": "2025-08-01",
+      "ts_iso": "2025-07-21T10:42:45Z",
+      "type": "ADT_DISCHARGE",
+      "payload": {
+        "facility_id": "FAC1001",
+        "facility": "Oak Valley Hospital",
+        "reason": null,
+        "disposition": "SNF"
+      }
+    },
+    {
+      "ts": "2025-04-24",
+      "ts_iso": "2025-07-09T05:15:21Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Lab Draw",
+        "provider": "Dr. M. Patel",
+        "location": "Oak Valley Medical Office",
+        "start_iso": "2025-04-30T16:16:11Z",
+        "status": "Rescheduled"
+      }
+    },
+    {
+      "ts": "2025-06-06",
+      "ts_iso": "2025-06-16T10:13:50Z",
+      "type": "LAB_RESULT",
+      "payload": {
+        "test_name": "Potassium",
+        "value": 4.33,
+        "unit": "mmol/L",
+        "ref_range": "3.5-5.1 mmol/L",
+        "flag": "N",
+        "performing_lab": "MetroLab",
+        "lo": 3.5,
+        "hi": 5.1,
+        "observation_id": "OBS165230"
+      }
+    },
+    {
+      "ts": "2025-08-07",
+      "ts_iso": "2025-06-11T03:25:07Z",
+      "type": "CLAIM",
+      "payload": {
+        "cpt": "83036",
+        "icd10": ["I10"],
+        "amount": 127.47,
+        "place_of_service": "23-ED"
+      }
+    },
+    {
+      "ts": "2025-04-15",
+      "ts_iso": "2025-06-07T23:06:13Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Metformin 500 mg",
+        "days_supply": 90,
+        "pharmacy": "MediPlus Pharmacy",
+        "refill_date": "2025-05-11T04:54:18Z",
+        "adherence_estimate": 0.63
+      }
+    },
+    {
+      "ts": "2025-06-24",
+      "ts_iso": "2025-05-29T20:07:01Z",
+      "type": "CLAIM",
+      "payload": {
+        "cpt": "83036",
+        "icd10": ["I10", "R53.83"],
+        "amount": 347.27,
+        "place_of_service": "22-OP Hospital"
+      }
+    },
+    {
+      "ts": "2025-07-01",
+      "ts_iso": "2025-05-15T00:54:04Z",
+      "type": "VITALS",
+      "payload": {
+        "bp_systolic": 151,
+        "bp_diastolic": 91,
+        "heart_rate": 104,
+        "resp_rate": 14,
+        "spo2": 98,
+        "temp_c": 36.2,
+        "bmi": 31.5,
+        "source": "Home device"
+      }
+    },
+    {
+      "ts": "2025-06-06",
+      "ts_iso": "2025-05-05T06:02:10Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Metformin 500 mg",
+        "days_supply": 90,
+        "pharmacy": "GoodHealth Pharmacy",
+        "refill_date": "2025-08-07T23:13:12Z",
+        "adherence_estimate": 0.69
+      }
+    },
+    {
+      "ts": "2025-07-28",
+      "ts_iso": "2025-05-02T19:09:46Z",
+      "type": "VITALS",
+      "payload": {
+        "bp_systolic": 128,
+        "bp_diastolic": 71,
+        "heart_rate": 104,
+        "resp_rate": 14,
+        "spo2": 100,
+        "temp_c": 36.4,
+        "bmi": 29.5,
+        "source": "Clinic"
+      }
+    },
+    {
+      "ts": "2025-06-04",
+      "ts_iso": "2025-04-22T15:43:10Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Telehealth Follow-up",
+        "provider": "Dr. M. Patel",
+        "location": "Oak Valley Medical Office",
+        "start_iso": "2025-04-27T23:46:17Z",
+        "status": "Completed"
+      }
+    },
+    {
+      "ts": "2025-07-05",
+      "ts_iso": "2025-04-20T08:31:22Z",
+      "type": "CLAIM",
+      "payload": {
+        "cpt": "80050",
+        "icd10": ["E11.9", "I10"],
+        "amount": 196.72,
+        "place_of_service": "11-Office"
+      }
+    },
+    {
+      "ts": "2025-06-02",
+      "ts_iso": "2025-04-17T09:50:52Z",
+      "type": "ADT_DISCHARGE",
+      "payload": {
+        "facility_id": "FAC1002",
+        "facility": "Riverbend Medical",
+        "reason": null,
+        "disposition": "SNF"
+      }
+    }
+  ]
+}

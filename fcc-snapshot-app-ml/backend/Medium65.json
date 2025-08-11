@@ -1,0 +1,188 @@
+{
+  "member_id": "MEM12345",
+  "profile": {
+    "member_id": "MEM12345",
+    "name": "Member 2345",
+    "age": 51,
+    "sex": "F",
+    "conditions": ["HTN"],
+    "tendencies": {
+      "a1c_mean": 5.4,
+      "a1c_sd": 0.3,
+      "hgb_mean": 12.8,
+      "hgb_sd": 1.1,
+      "sbp_mean": 142,
+      "sbp_sd": 12,
+      "dbp_mean": 88,
+      "dbp_sd": 8
+    }
+  },
+  "events": [
+    {
+      "ts": "2025-05-27",
+      "ts_iso": "2025-08-06T01:05:36Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1003",
+        "facility": "Sunrise Clinic",
+        "reason": "Fever",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-06-10",
+      "ts_iso": "2025-07-28T06:00:56Z",
+      "type": "CLAIM",
+      "payload": {
+        "cpt": "85025",
+        "icd10": ["R53.83"],
+        "amount": 304.22,
+        "place_of_service": "22-OP Hospital"
+      }
+    },
+    {
+      "ts": "2025-04-30",
+      "ts_iso": "2025-07-27T16:09:29Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1003",
+        "facility": "Sunrise Clinic",
+        "reason": "Syncope",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-05-06",
+      "ts_iso": "2025-07-24T23:02:12Z",
+      "type": "LAB_RESULT",
+      "payload": {
+        "test_name": "Potassium",
+        "value": 5.51,
+        "unit": "mmol/L",
+        "ref_range": "3.5-5.1 mmol/L",
+        "flag": "H",
+        "performing_lab": "MetroLab",
+        "lo": 3.5,
+        "hi": 5.1,
+        "observation_id": "OBS257802"
+      }
+    },
+    {
+      "ts": "2025-07-24",
+      "ts_iso": "2025-07-21T10:21:15Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Lisinopril 10 mg",
+        "days_supply": 90,
+        "pharmacy": "GoodHealth Pharmacy",
+        "refill_date": "2025-05-06T20:22:20Z",
+        "adherence_estimate": 0.61
+      }
+    },
+    {
+      "ts": "2025-05-29",
+      "ts_iso": "2025-07-14T08:58:41Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Metformin 500 mg",
+        "days_supply": 90,
+        "pharmacy": "MediPlus Pharmacy",
+        "refill_date": "2025-04-16T01:44:01Z",
+        "adherence_estimate": 0.96
+      }
+    },
+    {
+      "ts": "2025-04-15",
+      "ts_iso": "2025-07-11T00:08:55Z",
+      "type": "CLAIM",
+      "payload": {
+        "cpt": "80050",
+        "icd10": ["M54.5", "E11.9"],
+        "amount": 159.1,
+        "place_of_service": "23-ED"
+      }
+    },
+    {
+      "ts": "2025-07-02",
+      "ts_iso": "2025-07-01T01:53:12Z",
+      "type": "LAB_RESULT",
+      "payload": {
+        "test_name": "Ferritin",
+        "value": 79.92,
+        "unit": "ng/mL",
+        "ref_range": "20-250 ng/mL",
+        "flag": "N",
+        "performing_lab": "MetroLab",
+        "lo": 20,
+        "hi": 250,
+        "observation_id": "OBS980311"
+      }
+    },
+    {
+      "ts": "2025-07-14",
+      "ts_iso": "2025-05-24T12:14:14Z",
+      "type": "CLAIM",
+      "payload": {
+        "cpt": "83036",
+        "icd10": ["I10", "J06.9"],
+        "amount": 121.03,
+        "place_of_service": "11-Office"
+      }
+    },
+    {
+      "ts": "2025-05-19",
+      "ts_iso": "2025-05-16T23:53:57Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1001",
+        "facility": "Oak Valley Hospital",
+        "reason": "Hyperglycemia",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-05-13",
+      "ts_iso": "2025-05-14T16:16:16Z",
+      "type": "CLAIM",
+      "payload": {
+        "cpt": "80050",
+        "icd10": ["E78.5"],
+        "amount": 336.51,
+        "place_of_service": "23-ED"
+      }
+    },
+    {
+      "ts": "2025-05-29",
+      "ts_iso": "2025-05-02T06:08:26Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1002",
+        "facility": "Riverbend Medical",
+        "reason": "Shortness of breath",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-06-29",
+      "ts_iso": "2025-04-30T22:37:18Z",
+      "type": "ADT_DISCHARGE",
+      "payload": {
+        "facility_id": "FAC1001",
+        "facility": "Oak Valley Hospital",
+        "reason": null,
+        "disposition": "Home w/ Home Health"
+      }
+    },
+    {
+      "ts": "2025-06-12",
+      "ts_iso": "2025-04-15T01:41:05Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1002",
+        "facility": "Riverbend Medical",
+        "reason": "Syncope",
+        "disposition": null
+      }
+    }
+  ]
+}

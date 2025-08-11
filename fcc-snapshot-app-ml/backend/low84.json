@@ -1,0 +1,191 @@
+{
+  "member_id": "MEM12345",
+  "profile": {
+    "member_id": "MEM12345",
+    "name": "Member 2345",
+    "age": 51,
+    "sex": "F",
+    "conditions": ["HTN"],
+    "tendencies": {
+      "a1c_mean": 5.4,
+      "a1c_sd": 0.3,
+      "hgb_mean": 12.8,
+      "hgb_sd": 1.1,
+      "sbp_mean": 142,
+      "sbp_sd": 12,
+      "dbp_mean": 88,
+      "dbp_sd": 8
+    }
+  },
+  "events": [
+    {
+      "ts": "2025-05-06",
+      "ts_iso": "2025-08-07T11:53:37Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1003",
+        "facility": "Sunrise Clinic",
+        "reason": "Hyperglycemia",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-06-26",
+      "ts_iso": "2025-08-07T00:54:00Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Metformin 500 mg",
+        "days_supply": 90,
+        "pharmacy": "MediPlus Pharmacy",
+        "refill_date": "2025-06-29T11:21:55Z",
+        "adherence_estimate": 0.8
+      }
+    },
+    {
+      "ts": "2025-06-04",
+      "ts_iso": "2025-07-22T18:22:39Z",
+      "type": "VITALS",
+      "payload": {
+        "bp_systolic": 158,
+        "bp_diastolic": 77,
+        "heart_rate": 84,
+        "resp_rate": 17,
+        "spo2": 95,
+        "temp_c": 38.3,
+        "bmi": 22.3,
+        "source": "Clinic"
+      }
+    },
+    {
+      "ts": "2025-07-07",
+      "ts_iso": "2025-07-21T13:17:11Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Cardiology",
+        "provider": "NP R. Gomez",
+        "location": "Telehealth",
+        "start_iso": "2025-07-24T19:25:52Z",
+        "status": "No-Show"
+      }
+    },
+    {
+      "ts": "2025-05-26",
+      "ts_iso": "2025-07-06T14:35:21Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Lisinopril 10 mg",
+        "days_supply": 90,
+        "pharmacy": "CareFirst Rx",
+        "refill_date": "2025-08-10T10:06:13Z",
+        "adherence_estimate": 0.67
+      }
+    },
+    {
+      "ts": "2025-05-21",
+      "ts_iso": "2025-07-03T21:13:06Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1003",
+        "facility": "Sunrise Clinic",
+        "reason": "Chest pain",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-07-06",
+      "ts_iso": "2025-06-25T14:42:01Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1001",
+        "facility": "Oak Valley Hospital",
+        "reason": "Shortness of breath",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-04-27",
+      "ts_iso": "2025-06-08T04:41:18Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Lab Draw",
+        "provider": "Dr. M. Patel",
+        "location": "Oak Valley Medical Office",
+        "start_iso": "2025-05-01T02:06:40Z",
+        "status": "Scheduled"
+      }
+    },
+    {
+      "ts": "2025-06-14",
+      "ts_iso": "2025-05-19T04:25:21Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Primary Care",
+        "provider": "Dr. M. Patel",
+        "location": "Telehealth",
+        "start_iso": "2025-04-13T16:19:53Z",
+        "status": "Scheduled"
+      }
+    },
+    {
+      "ts": "2025-05-10",
+      "ts_iso": "2025-05-14T16:35:43Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1002",
+        "facility": "Riverbend Medical",
+        "reason": "Chest pain",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-06-24",
+      "ts_iso": "2025-05-11T01:58:05Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Cardiology",
+        "provider": "Dr. L. Chen",
+        "location": "Telehealth",
+        "start_iso": "2025-05-18T15:43:42Z",
+        "status": "No-Show"
+      }
+    },
+    {
+      "ts": "2025-07-12",
+      "ts_iso": "2025-05-07T07:51:23Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Endocrinology",
+        "provider": "Dr. M. Patel",
+        "location": "Oak Valley Medical Office",
+        "start_iso": "2025-04-20T12:09:47Z",
+        "status": "Rescheduled"
+      }
+    },
+    {
+      "ts": "2025-08-10",
+      "ts_iso": "2025-04-16T13:43:20Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1002",
+        "facility": "Riverbend Medical",
+        "reason": "Hyperglycemia",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-04-17",
+      "ts_iso": "2025-04-12T20:59:24Z",
+      "type": "VITALS",
+      "payload": {
+        "bp_systolic": 133,
+        "bp_diastolic": 83,
+        "heart_rate": 94,
+        "resp_rate": 20,
+        "spo2": 98,
+        "temp_c": 36.5,
+        "bmi": 22.9,
+        "source": "Clinic"
+      }
+    }
+  ]
+}

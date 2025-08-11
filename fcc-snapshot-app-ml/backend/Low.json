@@ -1,0 +1,202 @@
+{
+  "member_id": "MEM12345",
+  "profile": {
+    "member_id": "MEM12345",
+    "name": "Member 2345",
+    "age": 51,
+    "sex": "F",
+    "conditions": ["HTN"],
+    "tendencies": {
+      "a1c_mean": 5.4,
+      "a1c_sd": 0.3,
+      "hgb_mean": 12.8,
+      "hgb_sd": 1.1,
+      "sbp_mean": 142,
+      "sbp_sd": 12,
+      "dbp_mean": 88,
+      "dbp_sd": 8
+    }
+  },
+  "events": [
+    {
+      "ts": "2025-08-11",
+      "ts_iso": "2025-07-26T15:40:17Z",
+      "type": "ADT_DISCHARGE",
+      "payload": {
+        "facility_id": "FAC1003",
+        "facility": "Sunrise Clinic",
+        "reason": null,
+        "disposition": "Home"
+      }
+    },
+    {
+      "ts": "2025-08-09",
+      "ts_iso": "2025-07-24T01:13:56Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Metformin 500 mg",
+        "days_supply": 60,
+        "pharmacy": "CareFirst Rx",
+        "refill_date": "2025-06-01T04:44:15Z",
+        "adherence_estimate": 0.61
+      }
+    },
+    {
+      "ts": "2025-07-26",
+      "ts_iso": "2025-07-16T20:45:07Z",
+      "type": "LAB_RESULT",
+      "payload": {
+        "test_name": "Potassium",
+        "value": 5.07,
+        "unit": "mmol/L",
+        "ref_range": "3.5-5.1 mmol/L",
+        "flag": "N",
+        "performing_lab": "MetroLab",
+        "lo": 3.5,
+        "hi": 5.1,
+        "observation_id": "OBS184345"
+      }
+    },
+    {
+      "ts": "2025-07-31",
+      "ts_iso": "2025-07-09T21:56:30Z",
+      "type": "LAB_RESULT",
+      "payload": {
+        "test_name": "Potassium",
+        "value": 3.56,
+        "unit": "mmol/L",
+        "ref_range": "3.5-5.1 mmol/L",
+        "flag": "N",
+        "performing_lab": "Pinecrest Diagnostics",
+        "lo": 3.5,
+        "hi": 5.1,
+        "observation_id": "OBS948136"
+      }
+    },
+    {
+      "ts": "2025-07-31",
+      "ts_iso": "2025-06-19T07:22:50Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Primary Care",
+        "provider": "Dr. L. Chen",
+        "location": "Oak Valley Medical Office",
+        "start_iso": "2025-05-23T13:26:45Z",
+        "status": "Scheduled"
+      }
+    },
+    {
+      "ts": "2025-05-09",
+      "ts_iso": "2025-06-15T09:23:14Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1002",
+        "facility": "Riverbend Medical",
+        "reason": "Hyperglycemia",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-06-26",
+      "ts_iso": "2025-06-12T16:38:21Z",
+      "type": "LAB_RESULT",
+      "payload": {
+        "test_name": "Sodium",
+        "value": 144.18,
+        "unit": "mmol/L",
+        "ref_range": "135-145 mmol/L",
+        "flag": "N",
+        "performing_lab": "Pinecrest Diagnostics",
+        "lo": 135,
+        "hi": 145,
+        "observation_id": "OBS629659"
+      }
+    },
+    {
+      "ts": "2025-04-30",
+      "ts_iso": "2025-06-11T05:55:07Z",
+      "type": "LAB_RESULT",
+      "payload": {
+        "test_name": "Hemoglobin",
+        "value": 13.12,
+        "unit": "g/dL",
+        "ref_range": "11.5-16.0 g/dL",
+        "flag": "N",
+        "performing_lab": "Pinecrest Diagnostics",
+        "lo": 11.5,
+        "hi": 16.0,
+        "observation_id": "OBS750569"
+      }
+    },
+    {
+      "ts": "2025-08-04",
+      "ts_iso": "2025-06-01T14:00:37Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1001",
+        "facility": "Oak Valley Hospital",
+        "reason": "Shortness of breath",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-07-18",
+      "ts_iso": "2025-05-23T07:01:44Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Lisinopril 10 mg",
+        "days_supply": 90,
+        "pharmacy": "GoodHealth Pharmacy",
+        "refill_date": "2025-06-25T14:14:55Z",
+        "adherence_estimate": 0.68
+      }
+    },
+    {
+      "ts": "2025-05-19",
+      "ts_iso": "2025-05-10T18:30:27Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Atorvastatin 20 mg",
+        "days_supply": 30,
+        "pharmacy": "CareFirst Rx",
+        "refill_date": "2025-07-28T01:57:48Z",
+        "adherence_estimate": 0.7
+      }
+    },
+    {
+      "ts": "2025-05-17",
+      "ts_iso": "2025-05-10T16:46:21Z",
+      "type": "ADT_ADMIT",
+      "payload": {
+        "facility_id": "FAC1002",
+        "facility": "Riverbend Medical",
+        "reason": "Chest pain",
+        "disposition": null
+      }
+    },
+    {
+      "ts": "2025-06-24",
+      "ts_iso": "2025-04-18T07:33:30Z",
+      "type": "APPOINTMENT",
+      "payload": {
+        "appt_type": "Cardiology",
+        "provider": "Dr. M. Patel",
+        "location": "Oak Valley Medical Office",
+        "start_iso": "2025-08-01T16:20:13Z",
+        "status": "Scheduled"
+      }
+    },
+    {
+      "ts": "2025-04-26",
+      "ts_iso": "2025-04-15T14:40:40Z",
+      "type": "MED_REFILL",
+      "payload": {
+        "drug": "Lisinopril 10 mg",
+        "days_supply": 90,
+        "pharmacy": "MediPlus Pharmacy",
+        "refill_date": "2025-08-01T18:34:32Z",
+        "adherence_estimate": 0.86
+      }
+    }
+  ]
+}

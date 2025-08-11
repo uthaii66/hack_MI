@@ -461,8 +461,32 @@ def get_snapshot(member_id: str):
     profile = generate_member_profile(member_id)
     events = gen_events(14, days=120, profile=profile)
 
+    # Save full synthetic data (profile and events) to a JSON file
+    try:
+        synth_path = os.path.join(os.path.dirname(__file__), f"synthetic_data_{member_id}.json")
+        with open(synth_path, "w") as f:
+            json.dump({
+                "member_id": member_id,
+                "profile": profile,
+                "events": events
+            }, f, indent=2)
+    except Exception as e:
+        print(f"[WARN] Could not save synthetic data for {member_id}: {e}")
+
     # Features + predict
     fvec_list = extract_features(events)
+    # Save extracted features to a JSON file before sending to model
+    try:
+        save_path = os.path.join(os.path.dirname(__file__), f"features_{member_id}.json")
+        with open(save_path, "w") as f:
+            json.dump({
+                "member_id": member_id,
+                "features": dict(zip(FEATURE_NAMES, fvec_list)),
+                "events_count": len(events)
+            }, f, indent=2)
+    except Exception as e:
+        print(f"[WARN] Could not save features for {member_id}: {e}")
+
     fvec = np.array(fvec_list, dtype=float).reshape(1, -1)
     dtest = xgb.DMatrix(fvec, feature_names=FEATURE_NAMES)
     probs = model.predict(dtest)[0]  # [LOW, MEDIUM, HIGH]

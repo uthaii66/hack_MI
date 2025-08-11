@@ -1,6 +1,36 @@
 {
     "cSpell.words": [
+        "APPT",
+        "Codeable",
+        "creatinines",
+        "dtest",
+        "dtrain",
+        "dysnatremia",
+        "Endo",
+        "FHIR",
+        "figsize",
+        "fmap",
+        "fontsize",
+        "fvec",
+        "healthz",
+        "Lisinopril",
+        "Medi",
+        "meds",
+        "mlogloss",
+        "mmol",
+        "multiclass",
+        "ndarray",
+        "nephrotoxic",
+        "oximetry",
+        "Pinecrest",
+        "polyfit",
         "pycache",
-        "venv"
+        "Riverbend",
+        "softprob",
+        "Telehealth",
+        "venv",
+        "xlabel",
+        "yticklabels",
+        "yticks"
     ]
 }
