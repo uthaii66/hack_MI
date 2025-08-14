@@ -4,10 +4,10 @@
     "recent_discharge": 0,
     "abnormal_lab_count": 0,
     "claims_last_60d": 2,
-    "med_refill_count": 5,
-    "creatinine_trend": 0.0,
+    "med_refill_count": 1,
+    "creatinine_trend": 0.21999999999999975,
     "low_spo2_count": 0,
-    "high_bp_count": 1
+    "high_bp_count": 3
   },
   "events_count": 14
 }

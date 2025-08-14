@@ -117,18 +117,24 @@ export default function App() {
 
   const memberRef = useRef(memberId);
 
+  // Secure API wrapper: attaches FCC token when available
+  async function api(path, opts = {}) {
+    const token = await (window.fccAuth?.getToken?.() ?? null);
+    const headers = { 'content-type': 'application/json', ...(opts.headers || {}) };
+    if (token) headers.authorization = `Bearer ${token}`;
+    const res = await fetch(`${API_BASE}${path}`, { ...opts, headers });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  }
+
   async function fetchSnapshot(id) {
     try {
       setLoading(true);
       setError(null);
-      const [snapRes, tlRes] = await Promise.all([
-        fetch(`${API_BASE}/members/${id}/snapshot`),
-        fetch(`${API_BASE}/members/${id}/timeline?days=120&n=40`),
+      const [snap, tl] = await Promise.all([
+        api(`/members/${id}/snapshot`),
+        api(`/members/${id}/timeline?days=120&n=40`),
       ]);
-      if (!snapRes.ok) throw new Error(`Snapshot HTTP ${snapRes.status}`);
-      if (!tlRes.ok) throw new Error(`Timeline HTTP ${tlRes.status}`);
-      const snap = await snapRes.json();
-      const tl = await tlRes.json();
       setData(snap);
       setTimeline(tl.events || []);
     } catch (e) {
@@ -150,11 +156,7 @@ export default function App() {
     if (!live) return;
     const handle = setInterval(async () => {
       try {
-        const res = await fetch(
-          `${API_BASE}/members/${memberRef.current}/tick`
-        );
-        if (!res.ok) return;
-        const j = await res.json();
+        const j = await api(`/members/${memberRef.current}/tick`);
         if (j && j.event) setTimeline((prev) => [j.event, ...prev]);
       } catch {
         /* ignore transient errors */
@@ -204,8 +206,8 @@ export default function App() {
     setSectionsOpen((prev) => ({ ...prev, [type]: !prev[type] }));
   };
 
-  const toggle = (idx) =>
-    setExpanded((prev) => ({ ...prev, [idx]: !prev[idx] }));
+  const toggle = (key) =>
+    setExpanded((prev) => ({ ...prev, [key]: !prev[key] }));
 
   const label = data?.risk?.label || "LOW";
   const prob = data?.risk?.score || 0;
@@ -230,17 +232,16 @@ export default function App() {
 
   async function downloadFHIR(id) {
     try {
-      const res = await fetch(`${API_BASE}/members/${id}/fhir`);
+      const token = await (window.fccAuth?.getToken?.() ?? null);
+      const res = await fetch(`${API_BASE}/members/${id}/fhir`, {
+        headers: token ? { authorization: `Bearer ${token}` } : {},
+      });
       if (!res.ok) throw new Error(`FHIR HTTP ${res.status}`);
       const json = await res.json();
-      const blob = new Blob([JSON.stringify(json, null, 2)], {
-        type: "application/fhir+json",
-      });
+      const blob = new Blob([JSON.stringify(json, null, 2)], { type: 'application/fhir+json' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${id}_bundle.json`;
-      a.click();
+      const a = document.createElement('a');
+      a.href = url; a.download = `${id}_bundle.json`; a.click();
       URL.revokeObjectURL(url);
     } catch (e) {
       setError(e.message);
@@ -465,32 +466,35 @@ export default function App() {
               <EventIcon type={type} />
               <strong>{type}</strong> ({groupedByType[type].length})
               <span style={{ marginLeft: "auto" }}>
-                {sectionsOpen[type] ? "▼" : "▶"}
+                {(sectionsOpen[type] ?? true) ? "▼" : "▶"}
               </span>
             </div>
-            {sectionsOpen[type] &&
-              groupedByType[type].map((e, i) => (
-                <div
-                  className="timeline-event"
-                  key={i}
-                  onClick={() => toggle(i)}
-                >
-                  <EventIcon type={e.type} />
-                  <div className="content">
-                    <div className="header">
-                      <div className="title">{e.type}</div>
-                      <div className="date">{e.ts_iso || e.ts}</div>
-                    </div>
-                    {expanded[i] && (
-                      <div className="details">
-                        <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>
-                          {JSON.stringify(e.payload, null, 2)}
-                        </pre>
+            {(sectionsOpen[type] ?? true) &&
+              groupedByType[type].map((e, i) => {
+                const evKey = `${type}:${e.ts_iso || e.ts}:${i}`;
+                return (
+                  <div
+                    className="timeline-event"
+                    key={evKey}
+                    onClick={() => toggle(evKey)}
+                  >
+                    <EventIcon type={e.type} />
+                    <div className="content">
+                      <div className="header">
+                        <div className="title">{e.type}</div>
+                        <div className="date">{e.ts_iso || e.ts}</div>
                       </div>
-                    )}
+                      {expanded[evKey] && (
+                        <div className="details">
+                          <pre style={{ margin: 0, whiteSpace: 'pre-wrap' }}>
+                            {JSON.stringify(e.payload, null, 2)}
+                          </pre>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
           </div>
         ))}
       </div>

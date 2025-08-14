@@ -9,7 +9,7 @@ import uuid, io, base64, json, random
 
 # --- typing & pydantic/fastapi
 from typing import List, Dict, Any, Optional
-from fastapi import FastAPI, Query,Body
+from fastapi import FastAPI, Query, Body, Request, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -20,24 +20,121 @@ import shap
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import logging
+import requests
+from jose import jwt, jwk
 
 # ------------------------------------------------------------------------------
 # FastAPI app
 # ------------------------------------------------------------------------------
 app = FastAPI(title="FCC Snapshot API (ML, FHIR, Batch)", version="0.4.0")
 
+# CORS: use env ALLOWED_ORIGINS, fallback to local dev URLs; no wildcard
+origins_env = os.getenv("ALLOWED_ORIGINS", "").split(",")
+allowed_origins = [o.strip() for o in origins_env if o.strip()] or [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["authorization", "content-type"],
 )
+
+# ------------------------------------------------------------------------------
+# Auth (OIDC/JWT via JWKS) + Structured logging
+# ------------------------------------------------------------------------------
+AUTH_REQUIRED = os.getenv("AUTH_REQUIRED", "true").lower() == "true"
+OIDC_ISS = os.getenv("OIDC_ISS")
+OIDC_AUD = os.getenv("OIDC_AUD")
+OIDC_JWKS_URL = os.getenv("OIDC_JWKS_URL")
+
+# Structured logger (PII/PHI scrubbed)
+logger = logging.getLogger("fcc.ai")
+_handler = logging.StreamHandler()
+_handler.setFormatter(logging.Formatter('%(message)s'))
+if not logger.handlers:
+    logger.addHandler(_handler)
+logger.setLevel(logging.INFO)
+
+def log_event(event: str, **kv):
+    redacted_keys = {"profile", "events", "payload", "shap_plot"}
+    safe = {k: ("[redacted]" if k in redacted_keys else v) for k, v in kv.items()}
+    logger.info(json.dumps({"event": event, **safe}))
+
+# JWKS cache
+_JWKS = {"keys": []}
+_JWKS_TS = 0
+
+def _load_jwks(force: bool = False):
+    global _JWKS, _JWKS_TS
+    if not OIDC_JWKS_URL:
+        return
+    now = int(datetime.utcnow().timestamp())
+    if force or (now - _JWKS_TS > 300):
+        resp = requests.get(OIDC_JWKS_URL, timeout=5)
+        resp.raise_for_status()
+        _JWKS = resp.json()
+        _JWKS_TS = now
+
+def _pem_for_kid(kid: str) -> bytes:
+    _load_jwks()
+    for k in _JWKS.get("keys", []):
+        if k.get("kid") == kid:
+            return jwk.construct(k).to_pem()
+    _load_jwks(force=True)
+    for k in _JWKS.get("keys", []):
+        if k.get("kid") == kid:
+            return jwk.construct(k).to_pem()
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Signing key not found")
+
+@app.middleware("http")
+async def authn(request: Request, call_next):
+    # Allow health without auth or disable globally via env
+    # Also bypass auth automatically in non-prod or when OIDC is not configured
+    if (
+        not AUTH_REQUIRED
+        or request.url.path == "/healthz"
+        or os.getenv("APP_ENV", "dev").lower() != "prod"
+        or not (OIDC_ISS and OIDC_AUD and OIDC_JWKS_URL)
+    ):
+        return await call_next(request)
+
+    auth = request.headers.get("authorization", "")
+    if not auth.startswith("Bearer "):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing bearer token")
+    token = auth.split(" ", 1)[1]
+
+    try:
+        header = jwt.get_unverified_header(token)
+        kid = header.get("kid")
+        if not kid:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing kid")
+        pub_pem = _pem_for_kid(kid)
+        claims = jwt.decode(
+            token,
+            pub_pem,
+            algorithms=["RS256", "RS384", "RS512", "ES256", "ES384"],
+            audience=OIDC_AUD,
+            issuer=OIDC_ISS,
+        )
+        request.state.user = (
+            claims.get("preferred_username")
+            or claims.get("upn")
+            or claims.get("email")
+            or claims.get("sub")
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"[AUTH] JWT validation failed: {e}")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+
+    return await call_next(request)
 
 # ------------------------------------------------------------------------------
 # Synthetic dictionaries / constants
@@ -455,31 +552,33 @@ def test_snapshot(
     profile = payload.get("profile", {})
     events = payload.get("events", [])
 
-    # Save full synthetic data (profile and events) to a JSON file
-    try:
-        synth_path = os.path.join(os.path.dirname(__file__), f"synthetic_data_{member_id}_test.json")
-        with open(synth_path, "w") as f:
-            json.dump({
-                "member_id": member_id,
-                "profile": profile,
-                "events": events
-            }, f, indent=2)
-    except Exception as e:
-        print(f"[WARN] Could not save synthetic data for {member_id}: {e}")
+    # Save full synthetic data in non-prod only
+    if os.getenv("APP_ENV", "dev").lower() != "prod":
+        try:
+            synth_path = os.path.join(os.path.dirname(__file__), f"synthetic_data_{member_id}_test.json")
+            with open(synth_path, "w") as f:
+                json.dump({
+                    "member_id": member_id,
+                    "profile": profile,
+                    "events": events
+                }, f, indent=2)
+        except Exception as e:
+            print(f"[WARN] Could not save synthetic data for {member_id}: {e}")
 
     # Features + predict
     fvec_list = extract_features(events)
-    # Save extracted features to a JSON file before sending to model
-    try:
-        save_path = os.path.join(os.path.dirname(__file__), f"features_{member_id}_test.json")
-        with open(save_path, "w") as f:
-            json.dump({
-                "member_id": member_id,
-                "features": dict(zip(FEATURE_NAMES, fvec_list)),
-                "events_count": len(events)
-            }, f, indent=2)
-    except Exception as e:
-        print(f"[WARN] Could not save features for {member_id}: {e}")
+    # Save extracted features only in non-prod
+    if os.getenv("APP_ENV", "dev").lower() != "prod":
+        try:
+            save_path = os.path.join(os.path.dirname(__file__), f"features_{member_id}_test.json")
+            with open(save_path, "w") as f:
+                json.dump({
+                    "member_id": member_id,
+                    "features": dict(zip(FEATURE_NAMES, fvec_list)),
+                    "events_count": len(events)
+                }, f, indent=2)
+        except Exception as e:
+            print(f"[WARN] Could not save features for {member_id}: {e}")
 
     fvec = np.array(fvec_list, dtype=float).reshape(1, -1)
     dtest = xgb.DMatrix(fvec, feature_names=FEATURE_NAMES)
@@ -535,6 +634,7 @@ def test_snapshot(
         "recommended_next_steps": next_steps
     }
 
+    log_event("test_snapshot", member_id=member_id, risk=label)
     return {
         "member_id": member_id,
         "generated_at": datetime.utcnow().isoformat() + "Z",
@@ -565,31 +665,33 @@ def get_snapshot(member_id: str):
     profile = generate_member_profile(member_id)
     events = gen_events(14, days=120, profile=profile)
 
-    # Save full synthetic data (profile and events) to a JSON file
-    try:
-        synth_path = os.path.join(os.path.dirname(__file__), f"synthetic_data_{member_id}.json")
-        with open(synth_path, "w") as f:
-            json.dump({
-                "member_id": member_id,
-                "profile": profile,
-                "events": events
-            }, f, indent=2)
-    except Exception as e:
-        print(f"[WARN] Could not save synthetic data for {member_id}: {e}")
+    # Save full synthetic data only in non-prod
+    if os.getenv("APP_ENV", "dev").lower() != "prod":
+        try:
+            synth_path = os.path.join(os.path.dirname(__file__), f"synthetic_data_{member_id}.json")
+            with open(synth_path, "w") as f:
+                json.dump({
+                    "member_id": member_id,
+                    "profile": profile,
+                    "events": events
+                }, f, indent=2)
+        except Exception as e:
+            print(f"[WARN] Could not save synthetic data for {member_id}: {e}")
 
     # Features + predict
     fvec_list = extract_features(events)
-    # Save extracted features to a JSON file before sending to model
-    try:
-        save_path = os.path.join(os.path.dirname(__file__), f"features_{member_id}.json")
-        with open(save_path, "w") as f:
-            json.dump({
-                "member_id": member_id,
-                "features": dict(zip(FEATURE_NAMES, fvec_list)),
-                "events_count": len(events)
-            }, f, indent=2)
-    except Exception as e:
-        print(f"[WARN] Could not save features for {member_id}: {e}")
+    # Save extracted features only in non-prod
+    if os.getenv("APP_ENV", "dev").lower() != "prod":
+        try:
+            save_path = os.path.join(os.path.dirname(__file__), f"features_{member_id}.json")
+            with open(save_path, "w") as f:
+                json.dump({
+                    "member_id": member_id,
+                    "features": dict(zip(FEATURE_NAMES, fvec_list)),
+                    "events_count": len(events)
+                }, f, indent=2)
+        except Exception as e:
+            print(f"[WARN] Could not save features for {member_id}: {e}")
 
     fvec = np.array(fvec_list, dtype=float).reshape(1, -1)
     dtest = xgb.DMatrix(fvec, feature_names=FEATURE_NAMES)
@@ -651,6 +753,7 @@ def get_snapshot(member_id: str):
         "recommended_next_steps": next_steps
     }
 
+    log_event("snapshot", member_id=member_id, risk=label)
     return {
         "member_id": member_id,
         "generated_at": datetime.utcnow().isoformat() + "Z",
